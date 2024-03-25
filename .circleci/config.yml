@@ -57,6 +57,7 @@ commands:
           command: |
             cd BlogExample/IntegrityOfMint
             pwd
+            rm -rf $HOME/.cache/solana
             cargo update -p solana-program@1.17.2 --precise 1.17.2
             cargo-build-sbf --arch=sbfv1 --features no-entrypoint certora
   
