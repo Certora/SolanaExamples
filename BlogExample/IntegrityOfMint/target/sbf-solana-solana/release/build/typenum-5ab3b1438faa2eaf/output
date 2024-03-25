@@ -1,2 +1,0 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/nivvaknin/CERTORA/SolanaExamples/BlogExample/IntegrityOfMint/program-2022/target/sbf-solana-solana/release/build/typenum-5ab3b1438faa2eaf/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/Users/nivvaknin/CERTORA/SolanaExamples/BlogExample/IntegrityOfMint/program-2022/target/sbf-solana-solana/release/build/typenum-5ab3b1438faa2eaf/out/op.rs
