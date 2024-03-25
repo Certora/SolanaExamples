@@ -7,7 +7,7 @@
 Located at: `program/src`
 
 ## Specs
-Located at: `certora/spec`
+Located at: `src/certora/spec`
 
 ## Compilation (Need to be done only if changed the source code or spec)
 ```bash
