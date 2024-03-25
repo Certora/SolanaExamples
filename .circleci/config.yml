@@ -50,7 +50,7 @@ commands:
           role_arn: $CIRCLECI_OIDC_DEVELOPMENT
           session_duration: "8100"
   
-  compileBlogExample:
+  compile_blog_example:
     steps:
       - run:
           name: Compile SOL To bytecode
@@ -90,7 +90,7 @@ jobs:
 
       - install_conf_runner_infra
 
-      - compileBlogExample
+      - compile_blog_example
 
       - regression
 
