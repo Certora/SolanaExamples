@@ -7,7 +7,7 @@
 Located at: `program/src`
 
 ## Specs
-Located at: `src/certora/spec`
+Located at: `certora/spec`
 
 ## Compilation (Need to be done only if changed the source code or spec)
 ```bash
@@ -17,7 +17,7 @@ cargo build-sbf --arch=sbfv1 --features no-entrypoint certora
 
 ## Usage
 ```bash
-cd src/certora
+cd certora
 
 # Run the IntegrityOfProcessMintToFalse Rule
 certoraRun IntegrityOfProcessMintToFalse.conf
