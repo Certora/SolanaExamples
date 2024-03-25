@@ -56,7 +56,7 @@ commands:
           name: Compile SOL To bytecode
           command: |
             cd BlogExample/IntegrityOfMint
-            cargo build-sbf --arch=sbfv1 --features no-entrypoint certora
+            cargo-build-sbf --arch=sbfv1 --features no-entrypoint certora
   
   regression:
     steps:
