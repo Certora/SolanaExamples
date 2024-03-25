@@ -55,6 +55,7 @@ commands:
       - run:
           name: Compile SOL To bytecode
           command: |
+            source ~/.profile
             cd BlogExample/IntegrityOfMint
             cargo build-sbf --arch=sbfv1 --features no-entrypoint certora
   
