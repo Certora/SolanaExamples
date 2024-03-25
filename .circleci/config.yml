@@ -57,7 +57,8 @@ commands:
           command: |
             cd BlogExample/IntegrityOfMint
             pwd
-            cargo update -p solana-program@1.18.8 --precise 1.18.1
+            cargo update -p solana-program@1.17.2 --precise 1.17.2
+            anchor build
             cargo-build-sbf --arch=sbfv1 --features no-entrypoint certora
   
   regression:
