@@ -81,7 +81,7 @@ jobs:
   solana_nightly:
     parameters:
       certora_ci_name:
-        type: boolean
+        type: str
         default: false
     docker:
       - image: &img public.ecr.aws/certora/cvt-image:2024.03.11-3376-a52d026
