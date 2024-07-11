@@ -61,27 +61,34 @@ commands:
   
   regression:
     steps:
-     - run:
+    - run:
         name: Run Regression Tests
         command: |
-           Regression --path << pipeline.parameters.path_to_confs >> \
-                        --prover_version << pipeline.parameters.prover_version >> \
-                        --json_flags '{
-                          "use_per_rule_cache": false,
-                          "unused_summary_hard_fail": "on",
-                          "assert_autofinder_success": true,
-                          "optimistic_loop": true
-                        }' \
-                        --send_message
+          Regression --path << pipeline.parameters.path_to_confs >> \
+                    --prover_version << pipeline.parameters.prover_version >> \
+                    --json_flags '{
+                      \"use_per_rule_cache\": false,
+                      \"unused_summary_hard_fail\": \"on\",
+                      \"assert_autofinder_success\": true,
+                      \"optimistic_loop\": true,
+                      \"group_id\": \"$CIRCLE_WORKFLOW_ID\"
+                    }' \
+                    --send_message
+
 
 
 jobs:
   solana_nightly:
+    parameters:
+      certora_ci_name:
+        type: boolean
+        default: false
     docker:
       - image: &img public.ecr.aws/certora/cvt-image:2024.03.11-3376-a52d026
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
+      CERTORA_CI_CLIENT: << parameters.certora_ci_name >>
     working_directory: ~/repo
     steps:
       
@@ -117,6 +124,7 @@ workflows:
                 - main
     jobs:
       - solana_nightly:
+          certora_ci_name: "SOL Examples Nightly"
           context: aws_development
 
   # run from CircleCI with the boolean parameter run_workflow_nightly set to true
@@ -124,4 +132,5 @@ workflows:
     when: << pipeline.parameters.run_workflow_nightly >>
     jobs:
       - solana_nightly:
+          certora_ci_name: "SOL Examples Manual"
           context: aws_development
