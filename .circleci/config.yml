@@ -66,14 +66,9 @@ commands:
         command: |
           Regression --path << pipeline.parameters.path_to_confs >> \
                     --prover_version << pipeline.parameters.prover_version >> \
-                    --json_flags '{
-                      \"use_per_rule_cache\": false,
-                      \"unused_summary_hard_fail\": \"on\",
-                      \"assert_autofinder_success\": true,
-                      \"optimistic_loop\": true,
-                      \"group_id\": \"$CIRCLE_WORKFLOW_ID\"
-                    }' \
+                    --json_flags "{\"use_per_rule_cache\": false, \"unused_summary_hard_fail\": \"on\", \"assert_autofinder_success\": true, \"optimistic_loop\": true, \"group_id\": \"$CIRCLE_WORKFLOW_ID\"}" \
                     --send_message
+
 
 
 
