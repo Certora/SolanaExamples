@@ -38,7 +38,6 @@ commands:
 
   install_certora_cli:
     steps:
-
       - run:
           name: Get the current master of EVMVerifier with << pipeline.parameters.certora_cli_package >>
           command: pip3.11 install << pipeline.parameters.certora_cli_package >>
