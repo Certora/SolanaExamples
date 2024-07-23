@@ -6,7 +6,7 @@ version: 2.1
 
 
 orbs:
-  aws-cli: circleci/aws-cli@4.0.0
+  aws-cli: circleci/aws-cli@4.1.3
 
 parameters:
   run_workflow_nightly:
@@ -36,19 +36,19 @@ commands:
           command: pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git@liav/cert-6640-migrate-api-upload
 
 
-  install_certora_cli:    
+  install_certora_cli:
     steps:
 
       - run:
           name: Get the current master of EVMVerifier with << pipeline.parameters.certora_cli_package >>
           command: pip3.11 install << pipeline.parameters.certora_cli_package >>
 
+  configure_aws:
+    steps:
       - aws-cli/setup:
-          profile_name: "default"
-      - aws-cli/assume_role_with_web_identity:
-          profile_name: "default"
-          role_arn: $CIRCLECI_OIDC_DEVELOPMENT
-          session_duration: "8100"
+          role_arn: ${CIRCLECI_OIDC_CDK_STAGING}
+          region: ${AWS_REGION}
+          session_duration: '8100'
   
   compile_blog_example:
     steps:
@@ -90,6 +90,8 @@ jobs:
 
       - install_certora_cli
 
+      - configure_aws 
+
       - install_conf_runner_infra
 
       - compile_blog_example
@@ -119,7 +121,7 @@ workflows:
     jobs:
       - solana_nightly:
           certora_ci_name: "SOL Examples Nightly"
-          context: aws_development
+          context: aws_staging
 
   # run from CircleCI with the boolean parameter run_workflow_nightly set to true
   manual:
@@ -127,4 +129,4 @@ workflows:
     jobs:
       - solana_nightly:
           certora_ci_name: "SOL Examples Manual"
-          context: aws_development
+          context: aws_staging
