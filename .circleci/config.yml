@@ -48,6 +48,7 @@ commands:
           role_arn: ${CIRCLECI_OIDC_CDK_STAGING}
           region: ${AWS_REGION}
           session_duration: '8100'
+          set_aws_env_vars: false
   
   compile_blog_example:
     steps:
