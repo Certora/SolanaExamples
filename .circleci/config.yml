@@ -46,7 +46,7 @@ commands:
     steps:
       - aws-cli/setup:
           role_arn: $CIRCLECI_OIDC_CDK_STAGING
-          region: ${AWS_REGION}
+          region: $AWS_REGION
           session_duration: '8100'
 
   compile_blog_example:
