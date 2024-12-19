@@ -22,7 +22,7 @@ parameters:
     type: string
   
   prover_version:
-    default: "jorge/solana-dev"
+    default: "master"
     type: string
       
 

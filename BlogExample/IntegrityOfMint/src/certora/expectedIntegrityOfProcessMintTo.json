@@ -1,6 +1,7 @@
 {
 	"assertMessages": {},
 	"rules": {
-		"integrity_of_process_mint_to": "FAIL"
+	    "integrity_of_process_mint_to": "FAIL",
+	    "integrity_of_process_mint_to_false": "FAIL"
 	}
 }
