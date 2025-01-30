@@ -9,8 +9,10 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
+# This is the recommended list of flags to use to compile Solana projects.
+RUSTFLAGS = "-C llvm-args=--sbf-expand-memcpy-in-order -C llvm-args=--combiner-store-merging=false -C llvm-args=--combiner-load-merging=false -C llvm-args=--aggressive-instcombine-max-scan-instrs=0 -C llvm-args=--combiner-reduce-load-op-store-width=false -C llvm-args=--combiner-shrink-load-replace-store-with-store=false -C strip=none -C debuginfo=2"
 # Command to run for compiling the rust project.
-COMMAND = "RUSTFLAGS='-C strip=none -C debuginfo=2' cargo +solana build-sbf"
+COMMAND = "RUSTFLAGS='{}' cargo +solana build-sbf".format(RUSTFLAGS)
 
 # JSON FIELDS
 PROJECT_DIR = (SCRIPT_DIR).resolve()
