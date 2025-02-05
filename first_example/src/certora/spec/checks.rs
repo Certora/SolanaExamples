@@ -51,3 +51,13 @@ pub fn rule_satisfy() {
     // executions.
     cvlr_satisfy!(x < 1);
 }
+
+#[rule]
+pub fn rule_satisfy_assert() {
+    let x: u64 = nondet();
+    // In the presence of a satisfy, the assert statements are transformed into
+    // assume statements. For this reason, this rule passes and it is equivalent
+    // to the previous one.
+    cvlr_assert!(x < 10);
+    cvlr_satisfy!(x < 1);
+}
