@@ -6,11 +6,4 @@ resolver = "2"
 overflow-checks = true
 
 [workspace.dependencies]
-nondet = { git = "https://github.com/Certora/solana-cvt.git" }
-cvt = { git = "https://github.com/Certora/solana-cvt.git" }
-early-panic = { git = "https://github.com/Certora/solana-cvt.git" }
-cvt-macros = { git = "https://github.com/Certora/solana-cvt.git" }
-calltrace = { git = "https://github.com/Certora/solana-cvt.git" }
-solana_cvt = { git = "https://github.com/Certora/solana-cvt.git" }
-hook_macro = { git = "https://github.com/Certora/solana-cvt.git" }
-vectors = { git = "https://github.com/Certora/solana-cvt.git" }
+cvlr = { git = "https://github.com/Certora/solana-cvt.git", branch = "arie/cvlr" }
