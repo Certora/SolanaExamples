@@ -99,8 +99,7 @@ def main():
     stdout_log, stderr_log, return_code = run_command(COMMAND, to_stdout, env)
 
     if stdout_log is not None:
-        log(f"Temporary log file located at:\n\t{
-            stdout_log}\nand\n\t{stderr_log}")
+        log(f"Temporary log file located at:\n\t{stdout_log}\nand\n\t{stderr_log}")
 
     # JSON template
     output_data = {
