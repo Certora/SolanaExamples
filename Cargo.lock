@@ -4,8 +4,8 @@ version = 3
 
 [[package]]
 name = "cvlr"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "cvlr-asserts",
  "cvlr-early-panic",
@@ -18,13 +18,13 @@ dependencies = [
 
 [[package]]
 name = "cvlr-asserts"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 
 [[package]]
 name = "cvlr-early-panic"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -33,8 +33,8 @@ dependencies = [
 
 [[package]]
 name = "cvlr-hook"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "quote",
  "syn",
@@ -42,16 +42,16 @@ dependencies = [
 
 [[package]]
 name = "cvlr-log"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "cvlr-mathint",
 ]
 
 [[package]]
 name = "cvlr-macros"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -60,16 +60,16 @@ dependencies = [
 
 [[package]]
 name = "cvlr-mathint"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "cvlr-nondet",
 ]
 
 [[package]]
 name = "cvlr-nondet"
-version = "0.2.0"
-source = "git+https://github.com/Certora/solana-cvt.git?branch=arie/cvlr#90fb6febf38be7db8c741ace9d60422772ef060b"
+version = "0.3.0"
+source = "git+https://github.com/1arie1/cvlr?branch=main#d516e5fece8d17bb7a07068df648ce796c1d7c88"
 dependencies = [
  "cvlr-asserts",
 ]

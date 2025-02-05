@@ -6,4 +6,4 @@ resolver = "2"
 overflow-checks = true
 
 [workspace.dependencies]
-cvlr = { git = "https://github.com/Certora/solana-cvt.git", branch = "arie/cvlr" }
+cvlr = { git = "https://github.com/1arie1/cvlr", branch = "main" }
