@@ -3,6 +3,8 @@ use crate::{correct_add, faulty_add};
 // Import common definitions for Certora's formal verification.
 use cvlr::prelude::*;
 
+/// Verifies that `faulty_add` performs additions. This rule is expected to be
+/// violated.
 #[rule]
 pub fn rule_faulty_add_performs_addition() {
     let x: u64 = nondet(); // nondet creates a nondeterministic u64.
@@ -14,6 +16,8 @@ pub fn rule_faulty_add_performs_addition() {
     cvlr_assert_eq!(faulty_add_result,  x + y);
 }
 
+/// Verifies that `correct_add` performs additions. This rule is expected to be
+/// verified.
 #[rule]
 pub fn rule_correct_add_performs_addition() {
     let x: u64 = nondet();
@@ -22,6 +26,8 @@ pub fn rule_correct_add_performs_addition() {
     cvlr_assert_eq!(correct_add_result, x + y);
 }
 
+/// Verifies that a nondeterministic number that we assume being less than 10 is
+/// less than 999.
 #[rule]
 pub fn rule_with_assumptions() {
     let x: u64 = nondet();
@@ -30,6 +36,9 @@ pub fn rule_with_assumptions() {
     cvlr_assert_lt!(x, 999);
 }
 
+/// Verifies that a nondeterministic number that we assume to be *both* smaller
+/// and greater than 10 is exactly 10. This rule is vacuously verified due to
+/// contradicting assumptions. Nevertheless, the vacuity check fails.
 #[rule]
 pub fn rule_vacuous() {
     let x: u64 = nondet();
@@ -41,6 +50,8 @@ pub fn rule_vacuous() {
     cvlr_assert!(x == 10);
 }
 
+/// Verifies that there is *at least one* execution in which a nondeterministic
+/// number is less than 10.
 #[rule]
 pub fn rule_satisfy() {
     let x: u64 = nondet();
@@ -52,6 +63,9 @@ pub fn rule_satisfy() {
     cvlr_satisfy!(x < 1);
 }
 
+/// Verifies that there is *at least one* execution in which a nondeterministic
+/// number is less than 10. Shows that asserts are equivalent to assumes in case
+/// the rule uses satisfy.
 #[rule]
 pub fn rule_satisfy_assert() {
     let x: u64 = nondet();
