@@ -17,7 +17,7 @@ COMMAND = "RUSTFLAGS='{}' cargo +solana build-sbf".format(RUSTFLAGS)
 # JSON FIELDS
 PROJECT_DIR = (SCRIPT_DIR).resolve()
 SOURCES = ["src/**/*.rs"]
-EXECUTABLES = "../target/sbf-solana-solana/release/first_example.so"
+EXECUTABLES = "../../target/sbf-solana-solana/release/first_example.so"
 VERBOSE = False
 
 

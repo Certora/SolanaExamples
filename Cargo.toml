@@ -1,16 +1,9 @@
 [workspace]
-members = ["first_example"]
+members = ["cvlr_by_example/first_example"]
 resolver = "2"
 
 [profile.release]
 overflow-checks = true
 
 [workspace.dependencies]
-nondet = { git = "https://github.com/Certora/solana-cvt.git" }
-cvt = { git = "https://github.com/Certora/solana-cvt.git" }
-early-panic = { git = "https://github.com/Certora/solana-cvt.git" }
-cvt-macros = { git = "https://github.com/Certora/solana-cvt.git" }
-calltrace = { git = "https://github.com/Certora/solana-cvt.git" }
-solana_cvt = { git = "https://github.com/Certora/solana-cvt.git" }
-hook_macro = { git = "https://github.com/Certora/solana-cvt.git" }
-vectors = { git = "https://github.com/Certora/solana-cvt.git" }
+cvlr = { git = "https://github.com/1arie1/cvlr", branch = "main" }
