@@ -1,5 +1,5 @@
 [workspace]
-members = ["first_example"]
+members = ["cvlr_by_example/first_example"]
 resolver = "2"
 
 [profile.release]
