@@ -90,23 +90,12 @@ commands:
             mv $PLATFORM_TOOLS_DIR/platform-tools $PLATFORM_TOOLS_DIR/platform-tools.backup
             ln -sf $HOME/platform-tools-certora $PLATFORM_TOOLS_DIR/platform-tools
 
-  compile:
-    steps:
-      - run:
-          name: Compile Rust To SBF
-          command: |
-            source ~/.profile
-            rustup show
-            env RUSTFLAGS="${RUSTFLAGS} -C llvm-args=--sbf-expand-memcpy-in-order -C llvm-args=--combiner-store-merging=false -C strip=none -C debuginfo=2 << pipeline.parameters.extra_rustflags >>" \
-            cargo +solana build-sbf --features certora 
-
   regression:
     steps:
     - run:
         name: Run Regression Tests
         command: |
           Regression --path << pipeline.parameters.path_to_confs >> \
-                    --conf_ignore certora/CI_tests/test_ignore.txt\
                     --prover_version << pipeline.parameters.prover_version >> \
                     --json_flags "{\"rule_sanity\": \"<< pipeline.parameters.rule_sanity >>\", \"use_per_rule_cache\": false, \"unused_summary_hard_fail\": \"on\", \"assert_autofinder_success\": true, \"group_id\": \"$CIRCLE_WORKFLOW_ID\"}" \
                     --checks Verification \
@@ -140,8 +129,6 @@ jobs:
       - install_platform_tools
 
       - install_certora_platform_tools
-
-      - compile
 
       - regression
 
