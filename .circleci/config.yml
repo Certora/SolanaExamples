@@ -17,7 +17,7 @@ parameters:
     type: string
 
   path_to_confs:
-    default: "cvlr_by_example/first_example/certora/conf"
+    default: "cvlr_by_example"
     type: string
   
   prover_version:
