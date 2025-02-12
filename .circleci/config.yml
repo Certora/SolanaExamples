@@ -1,7 +1,3 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-
 version: 2.1
 
 orbs:
@@ -36,19 +32,21 @@ parameters:
     default: "basic"
     type: string
 
-
 commands:
 
   install_conf_runner_infra:
     steps:
       - run:
           name: Install ConfRunnerInfra
-          command: pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
+          command: |
+            pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
+            # If pip installs scripts into ~/.local/bin, add it to PATH:
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
   install_certora_cli:
     steps:
       - run:
-          name: Get the current master of EVMVerifier with << pipeline.parameters.certora_cli_package >>
+          name: Install Certora CLI Package
           command: pip3.11 install << pipeline.parameters.certora_cli_package >>
 
   configure_aws:
@@ -64,10 +62,9 @@ commands:
           name: Install Solana v.18.16
           command: |
             sh -c "$(curl -sSfL https://release.anza.xyz/v1.18.16/install)"
-            export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+            # Persist the updated PATH so that Solana binaries are available in later steps.
+            echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> $BASH_ENV
 
-  # platform-tools is installed the first time a Solana project is compiled via cargo build-sbf
-  # To force installing it before, we need to run env.sh
   install_platform_tools:
     steps:
       - run:
@@ -89,23 +86,24 @@ commands:
             tar -xvjf platform-tools-linux-x86_64.tar.bz2 -C $HOME/platform-tools-certora
             mv $PLATFORM_TOOLS_DIR/platform-tools $PLATFORM_TOOLS_DIR/platform-tools.backup
             ln -sf $HOME/platform-tools-certora $PLATFORM_TOOLS_DIR/platform-tools
+            # Optionally add platform-tools to PATH if needed:
+            echo 'export PATH="$HOME/platform-tools-certora:$PATH"' >> $BASH_ENV
 
   regression:
     steps:
-    - run:
-        name: Run Regression Tests
-        command: |
-          echo $PATH
-          ls -l ~/.local/share/solana/install
-          whoami
-          which cargo-build-sbf
-          Regression --path << pipeline.parameters.path_to_confs >> \
-                    --prover_run_cmd certoraSolanaProver \
-                    --prover_version << pipeline.parameters.prover_version >> \
-                    --json_flags "{\"rule_sanity\": \"<< pipeline.parameters.rule_sanity >>\", \"use_per_rule_cache\": false, \"unused_summary_hard_fail\": \"on\", \"assert_autofinder_success\": true, \"group_id\": \"$CIRCLE_WORKFLOW_ID\"}" \
-                    --checks Verification \
-                    --send_message
-
+      - run:
+          name: Run Regression Tests
+          command: |
+            echo "PATH: $PATH"
+            ls -l ~/.local/share/solana/install
+            whoami
+            which cargo-build-sbf
+            Regression --path << pipeline.parameters.path_to_confs >> \
+                      --prover_run_cmd certoraSolanaProver \
+                      --prover_version << pipeline.parameters.prover_version >> \
+                      --json_flags "{\"rule_sanity\": \"<< pipeline.parameters.rule_sanity >>\", \"use_per_rule_cache\": false, \"unused_summary_hard_fail\": \"on\", \"assert_autofinder_success\": true, \"group_id\": \"$CIRCLE_WORKFLOW_ID\"}" \
+                      --checks Verification \
+                      --send_message
 
 jobs:
   solana_nightly:
@@ -113,42 +111,29 @@ jobs:
       certora_ci_name:
         type: string
     docker:
-      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
       CERTORA_CI_CLIENT: << parameters.certora_ci_name >>
     working_directory: ~/repo
     steps:
-      
       - checkout
-
       - install_certora_cli
-
       - configure_aws
-
       - install_conf_runner_infra
-
       - install_solana
-
       - install_platform_tools
-
       - install_certora_platform_tools
-
       - regression
-
       - store_artifacts:
           path: Report.csv
           destination: reports
-      
       - store_test_results:
           path: ~/repo
 
-
-
 workflows:
   version: 2
-  # Nightly builds will run every day at 4am GMT
   nightly:
     triggers:
       - schedule:
@@ -161,8 +146,6 @@ workflows:
       - solana_nightly:
           certora_ci_name: Solana Examples Nightly
           context: aws_staging
-
-  # run from CircleCI with the boolean parameter run_workflow_nightly set to true
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
     jobs:
