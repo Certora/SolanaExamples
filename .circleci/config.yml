@@ -95,6 +95,7 @@ commands:
     - run:
         name: Run Regression Tests
         command: |
+          whoami
           which cargo-build-sbf
           echo $PATH
           ls -l ~/.local/share/solana/install
