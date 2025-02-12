@@ -96,6 +96,7 @@ commands:
         name: Run Regression Tests
         command: |
           Regression --path << pipeline.parameters.path_to_confs >> \
+                    --prover_run_cmd certoraSolanaProver \
                     --prover_version << pipeline.parameters.prover_version >> \
                     --json_flags "{\"rule_sanity\": \"<< pipeline.parameters.rule_sanity >>\", \"use_per_rule_cache\": false, \"unused_summary_hard_fail\": \"on\", \"assert_autofinder_success\": true, \"group_id\": \"$CIRCLE_WORKFLOW_ID\"}" \
                     --checks Verification \
