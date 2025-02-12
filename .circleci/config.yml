@@ -151,7 +151,7 @@ workflows:
           filters:
             branches:
               only:
-                - certora
+                - main
     jobs:
       - solana_nightly:
           certora_ci_name: Solana Examples Nightly
