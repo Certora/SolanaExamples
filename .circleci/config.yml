@@ -95,6 +95,9 @@ commands:
     - run:
         name: Run Regression Tests
         command: |
+          which cargo-build-sbf
+          echo $PATH
+          ls -l ~/.local/share/solana/install
           Regression --path << pipeline.parameters.path_to_confs >> \
                     --prover_run_cmd certoraSolanaProver \
                     --prover_version << pipeline.parameters.prover_version >> \
