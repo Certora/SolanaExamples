@@ -10,9 +10,9 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 # This is the recommended list of flags to use to compile Solana projects.
-RUSTFLAGS = "-C llvm-args=--sbf-expand-memcpy-in-order -C llvm-args=--combiner-store-merging=false -C llvm-args=--aggressive-instcombine-max-scan-instrs=0 -C llvm-args=--combiner-reduce-load-op-store-width=false -C llvm-args=--combiner-shrink-load-replace-store-with-store=false -C strip=none -C debuginfo=2"
+RUSTFLAGS = "-C llvm-args=--sbf-expand-memcpy-in-order -C llvm-args=--combiner-store-merging=false -C llvm-args=--combiner-load-merging=false -C llvm-args=--aggressive-instcombine-max-scan-instrs=0 -C llvm-args=--combiner-reduce-load-op-store-width=false -C llvm-args=--combiner-shrink-load-replace-store-with-store=false -C strip=none -C debuginfo=2"
 # Command to run for compiling the rust project.
-COMMAND = "RUSTFLAGS='{}' cargo +solana build-sbf".format(RUSTFLAGS)
+COMMAND = "cargo +solana build-sbf"
 
 # JSON FIELDS
 PROJECT_DIR = (SCRIPT_DIR).resolve()
@@ -30,13 +30,17 @@ def run_command(command, to_stdout=False, env=None):
     """Runs the build command and dumps output to temporary files."""
     log(f"Running '{command}'")
     try:
+        new_env = os.environ.copy()
+        new_env.update(
+            {"RUSTFLAGS": RUSTFLAGS}
+        )
         if to_stdout:
             result = subprocess.run(
                 command,
                 shell=True,
                 text=True,
                 cwd=SCRIPT_DIR,
-                env=env
+                env=new_env
             )
             return None, None, result.returncode
         else:
@@ -50,7 +54,7 @@ def run_command(command, to_stdout=False, env=None):
                     stderr=stderr_file,
                     text=True,
                     cwd=SCRIPT_DIR,
-                    env=env
+                    env=new_env
                 )
                 return stdout_file.name, stderr_file.name, result.returncode
     except Exception as e:
