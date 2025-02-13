@@ -1,5 +1,8 @@
 [workspace]
-members = ["cvlr_by_example/first_example"]
+members = [
+    "cvlr_by_example/first_example",
+    "cvlr_by_example/vault_application",
+]
 resolver = "2"
 
 [profile.release]
@@ -7,3 +10,9 @@ overflow-checks = true
 
 [workspace.dependencies]
 cvlr = { git = "https://github.com/Certora/cvlr", branch = "main" }
+cvlr-solana = { git = "https://github.com/Certora/cvlr-solana", branch = "main" }
+solana-program = "1.18"
+spl-token = { version = "4", features = ["no-entrypoint"] }
+spl-token-2022 = { version = "3", features = ["no-entrypoint"] }
+bytemuck = "1.7.2"
+spl-pod = "0.2.5"

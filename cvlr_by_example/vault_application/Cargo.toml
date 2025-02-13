@@ -1,0 +1,23 @@
+[package]
+name = "vault_application"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+no-entrypoint = []
+certora = ["no-entrypoint"]
+certora-vacuity = ["cvlr/vacuity"]
+certora-test = []
+
+[dependencies]
+solana-program = { workspace = true }
+spl-token = { workspace = true }
+spl-token-2022 = { workspace = true }
+bytemuck = { workspace = true }
+spl-pod = { workspace = true }
+
+cvlr = { workspace = true }
+cvlr-solana = { workspace = true }
