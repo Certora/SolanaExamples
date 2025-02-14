@@ -469,9 +469,9 @@ checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
 name = "cc"
-version = "1.2.13"
+version = "1.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7777341816418c02e033934a09f20dc0ccaf65a5201ef8a450ae0105a573fda"
+checksum = "0c3d1b2e905a3a7b00a6141adb0e4c0bb941d11caf55349d863942a1cc44e3c9"
 dependencies = [
  "jobserver",
  "libc",
@@ -620,7 +620,7 @@ dependencies = [
 [[package]]
 name = "cvlr"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "cvlr-asserts",
  "cvlr-early-panic",
@@ -634,12 +634,12 @@ dependencies = [
 [[package]]
 name = "cvlr-asserts"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 
 [[package]]
 name = "cvlr-early-panic"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -649,7 +649,7 @@ dependencies = [
 [[package]]
 name = "cvlr-hook"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "quote",
  "syn 2.0.98",
@@ -658,7 +658,7 @@ dependencies = [
 [[package]]
 name = "cvlr-log"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "cvlr-mathint",
 ]
@@ -666,7 +666,7 @@ dependencies = [
 [[package]]
 name = "cvlr-macros"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -676,15 +676,16 @@ dependencies = [
 [[package]]
 name = "cvlr-mathint"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
+ "cvlr-asserts",
  "cvlr-nondet",
 ]
 
 [[package]]
 name = "cvlr-nondet"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#f5d35c51afffec017f93f641e957c3d09d881320"
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
 dependencies = [
  "cvlr-asserts",
 ]
