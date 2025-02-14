@@ -470,9 +470,15 @@ checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
 name = "cc"
+<<<<<<< HEAD
 version = "1.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c736e259eea577f443d5c86c304f9f4ae0295c43f3ba05c21f1d66b5f06001af"
+=======
+version = "1.2.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c3d1b2e905a3a7b00a6141adb0e4c0bb941d11caf55349d863942a1cc44e3c9"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "jobserver",
  "libc",
@@ -621,7 +627,11 @@ dependencies = [
 [[package]]
 name = "cvlr"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "cvlr-asserts 0.3.0 (git+https://github.com/Certora/cvlr?branch=main)",
  "cvlr-early-panic",
@@ -635,17 +645,25 @@ dependencies = [
 [[package]]
 name = "cvlr-asserts"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
 
 [[package]]
 name = "cvlr-asserts"
 version = "0.3.0"
 source = "git+https://github.com/1arie1/cvlr.git#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 
 [[package]]
 name = "cvlr-early-panic"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "proc-macro2",
  "quote",
@@ -655,7 +673,11 @@ dependencies = [
 [[package]]
 name = "cvlr-hook"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "quote",
  "syn 2.0.98",
@@ -664,7 +686,11 @@ dependencies = [
 [[package]]
 name = "cvlr-log"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "cvlr-mathint 0.3.0 (git+https://github.com/Certora/cvlr?branch=main)",
 ]
@@ -680,7 +706,11 @@ dependencies = [
 [[package]]
 name = "cvlr-macros"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "darling",
  "proc-macro2",
@@ -691,6 +721,7 @@ dependencies = [
 [[package]]
 name = "cvlr-mathint"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
 dependencies = [
  "cvlr-asserts 0.3.0 (git+https://github.com/Certora/cvlr?branch=main)",
@@ -704,12 +735,22 @@ source = "git+https://github.com/1arie1/cvlr.git#492cf784ebbb2dce86b289e780f534d
 dependencies = [
  "cvlr-asserts 0.3.0 (git+https://github.com/1arie1/cvlr.git)",
  "cvlr-nondet 0.3.0 (git+https://github.com/1arie1/cvlr.git)",
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+dependencies = [
+ "cvlr-asserts",
+ "cvlr-nondet",
+>>>>>>> 6e475ad (Update cvlr version)
 ]
 
 [[package]]
 name = "cvlr-nondet"
 version = "0.3.0"
+<<<<<<< HEAD
 source = "git+https://github.com/Certora/cvlr?branch=main#492cf784ebbb2dce86b289e780f534d5286a8b20"
+=======
+source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+>>>>>>> 6e475ad (Update cvlr version)
 dependencies = [
  "cvlr-asserts 0.3.0 (git+https://github.com/Certora/cvlr?branch=main)",
 ]
