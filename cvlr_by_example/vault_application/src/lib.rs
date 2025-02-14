@@ -1,9 +1,18 @@
 use solana_program::{
-    account_info::AccountInfo, declare_id, entrypoint::ProgramResult, msg, pubkey::Pubkey,
+    account_info::AccountInfo, declare_id, entrypoint::ProgramResult, pubkey::Pubkey,
 };
-mod certora;
 mod processor;
 mod state;
+
+// Include formal verification module only if certora feature is enabled.
+#[cfg(feature = "certora")]
+mod certora;
+
+#[cfg(not(feature = "certora"))]
+use solana_program::msg;
+// If certora feature is enabled, msg should be substituted with `clog!`.
+#[cfg(feature = "certora")]
+use cvlr::clog as msg;
 
 declare_id!("4tjxVuepBgMVCbrdN3qx9pzt5zFy2bCwgyVrtidXY85o");
 
