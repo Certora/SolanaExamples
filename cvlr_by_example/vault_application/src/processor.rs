@@ -9,7 +9,11 @@ pub fn process_deposit(
     instruction_data: &[u8],
 ) -> Result<(), ProgramError> {
     let account_info_iter = &mut accounts.iter();
-    let tkn: u64 = instruction_data[0] as u64;
+    let tkn = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
 
     let vault_info = next_account_info(account_info_iter)?;
     let authority_info = next_account_info(account_info_iter)?;
@@ -51,7 +55,11 @@ pub fn process_withdraw(
     instruction_data: &[u8],
 ) -> Result<(), ProgramError> {
     let account_info_iter = &mut accounts.iter();
-    let shares: u64 = instruction_data[0] as u64;
+    let shares = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
 
     let vault_info = next_account_info(account_info_iter)?;
 
@@ -84,7 +92,11 @@ pub fn process_reward(
     instruction_data: &[u8],
 ) -> Result<(), ProgramError> {
     let account_info_iter = &mut accounts.iter();
-    let tkn: u64 = instruction_data[0] as u64;
+    let tkn = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
 
     let vault_info = next_account_info(account_info_iter)?;
 
@@ -108,7 +120,11 @@ pub fn process_slash(
     instruction_data: &[u8],
 ) -> Result<(), ProgramError> {
     let account_info_iter = &mut accounts.iter();
-    let tkn: u64 = instruction_data[0] as u64;
+    let tkn = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
 
     let vault_info = next_account_info(account_info_iter)?;
 
