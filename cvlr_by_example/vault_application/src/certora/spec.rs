@@ -14,8 +14,8 @@ pub fn rule_vault_solvency_withdraw() {
 
     assume_solvency!(vault_account);
 
-    let shares: u8 = nondet();
-    process_withdraw(&account_infos, &[shares as u8]).unwrap();
+    let shares: u64 = nondet();
+    process_withdraw(&account_infos, &shares.to_le_bytes()).unwrap();
 
     assert_solvency!(vault_account);
 }
