@@ -12,65 +12,59 @@ pub struct Vault {
 
 impl Vault {
     pub fn deposit(&mut self, tkn: u64) {
-        let mut shares_total: u64 = self.shares_total.into();
-        let mut token_total: u64 = self.token_total.into();
+        let shares_total: u64 = self.shares_total.into();
+        let token_total: u64 = self.token_total.into();
         let shares_for_user = if shares_total == token_total {
             tkn
         } else {
             mul_div_floor(tkn, token_total, token_total)
         };
 
-        Self::mint_shares(&mut shares_total, shares_for_user);
-        Self::add_token(&mut token_total, tkn);
-
-        self.shares_total = shares_total.into();
-        self.token_total = token_total.into();
+        self.mint_shares(shares_for_user);
+        self.add_token(tkn);
     }
 
     pub fn withdraw(&mut self, shares: u64) {
-        let mut shares_total: u64 = self.shares_total.into();
-        let mut token_total: u64 = self.token_total.into();
+        let shares_total: u64 = self.shares_total.into();
+        let token_total: u64 = self.token_total.into();
         let tkn_for_user = if shares_total == token_total {
             shares
         } else {
             mul_div_floor(shares, token_total, shares_total)
         };
 
-        Self::burn_shares(&mut shares_total, shares);
-        Self::del_token(&mut token_total, tkn_for_user);
-
-        self.shares_total = shares_total.into();
-        self.token_total = token_total.into();
+        self.burn_shares(shares);
+        self.del_token(tkn_for_user);
     }
 
     pub fn reward(&mut self, tkn: u64) {
-        let mut token_total: u64 = self.token_total.into();
-        Self::add_token(&mut token_total, tkn);
-        self.token_total = token_total.into();
+        self.add_token(tkn);
     }
 
     pub fn slash(&mut self, tkn: u64) {
-        let mut token_total: u64 = self.token_total.into();
-        Self::del_token(&mut token_total, tkn);
-        self.token_total = token_total.into();
+        self.del_token(tkn);
     }
 
-    fn mint_shares(shares_total: &mut u64, shares_for_user: u64) {
+    fn mint_shares(&mut self, shares_for_user: u64) {
         assert!(shares_for_user > 0);
-        *shares_total = shares_total.checked_add(shares_for_user).unwrap();
+        let shares_total: u64 = self.shares_total.into();
+        self.shares_total = shares_total.checked_add(shares_for_user).unwrap().into();
     }
 
-    fn burn_shares(shares_total: &mut u64, shares: u64) {
-        *shares_total = shares_total.checked_sub(shares).unwrap();
+    fn burn_shares(&mut self, shares: u64) {
+        let shares_total: u64 = self.shares_total.into();
+        self.shares_total = shares_total.checked_sub(shares).unwrap().into();
     }
 
-    fn add_token(token_total: &mut u64, tkn: u64) {
+    fn add_token(&mut self, tkn: u64) {
         assert!(tkn > 0);
-        *token_total = token_total.checked_add(tkn).unwrap();
+        let token_total: u64 = self.token_total.into();
+        self.token_total = token_total.checked_add(tkn).unwrap().into();
     }
 
-    fn del_token(token_total: &mut u64, tkn_for_user: u64) {
-        *token_total = token_total.checked_sub(tkn_for_user).unwrap();
+    fn del_token(&mut self, tkn_for_user: u64) {
+        let token_total: u64 = self.token_total.into();
+        self.token_total = token_total.checked_sub(tkn_for_user).unwrap().into();
     }
 }
 
