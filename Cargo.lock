@@ -620,7 +620,7 @@ dependencies = [
 [[package]]
 name = "cvlr"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "cvlr-asserts",
  "cvlr-early-panic",
@@ -634,12 +634,12 @@ dependencies = [
 [[package]]
 name = "cvlr-asserts"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 
 [[package]]
 name = "cvlr-early-panic"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -649,7 +649,7 @@ dependencies = [
 [[package]]
 name = "cvlr-hook"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "quote",
  "syn 2.0.98",
@@ -658,7 +658,7 @@ dependencies = [
 [[package]]
 name = "cvlr-log"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "cvlr-mathint",
 ]
@@ -666,8 +666,9 @@ dependencies = [
 [[package]]
 name = "cvlr-macros"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
+ "darling",
  "proc-macro2",
  "quote",
  "syn 2.0.98",
@@ -676,7 +677,7 @@ dependencies = [
 [[package]]
 name = "cvlr-mathint"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "cvlr-asserts",
  "cvlr-nondet",
@@ -685,7 +686,7 @@ dependencies = [
 [[package]]
 name = "cvlr-nondet"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr#362492e768b9e7f252bcf1a09d5b4258a469a967"
+source = "git+https://github.com/1arie1/cvlr#24b65f004e9f2a396fc6c986e4482ad74e2d874e"
 dependencies = [
  "cvlr-asserts",
 ]
@@ -693,7 +694,7 @@ dependencies = [
 [[package]]
 name = "cvlr-solana"
 version = "0.3.0"
-source = "git+https://github.com/1arie1/cvlr-solana#2b0153990ba1e4dd4f905eb8f7952954d140b1c4"
+source = "git+https://github.com/1arie1/cvlr-solana#8621232630778373da70f1d9ad40fcddab264595"
 dependencies = [
  "arrayref",
  "cvlr-asserts",
@@ -833,9 +834,9 @@ dependencies = [
 
 [[package]]
 name = "equivalent"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
+checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "feature-probe"
@@ -1679,9 +1680,9 @@ dependencies = [
 
 [[package]]
 name = "smallvec"
-version = "1.13.2"
+version = "1.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
+checksum = "7fcf8323ef1faaee30a44a340193b1ac6814fd9b7b4e88e9d4519a3e4abe1cfd"
 
 [[package]]
 name = "solana-frozen-abi"
