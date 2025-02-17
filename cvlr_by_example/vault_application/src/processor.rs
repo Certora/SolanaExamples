@@ -16,22 +16,12 @@ pub fn process_deposit(
     );
 
     let vault_info = next_account_info(account_info_iter)?;
-    let authority_info = next_account_info(account_info_iter)?;
-
     if vault_info.owner != &crate::id() {
         return Err(ProgramError::IllegalOwner);
     }
 
-    if !authority_info.is_signer {
-        return Err(ProgramError::MissingRequiredSignature);
-    }
-
     let mut data = vault_info.data.borrow_mut();
     let vault: &mut Vault = bytemuck::from_bytes_mut(&mut data[..]);
-
-    if authority_info.key != &vault.owner {
-        return Err(ProgramError::Custom(101));
-    }
 
     vault.deposit(tkn);
 
@@ -50,7 +40,6 @@ pub fn process_withdraw(
     );
 
     let vault_info = next_account_info(account_info_iter)?;
-
     if vault_info.owner != &crate::id() {
         return Err(ProgramError::IllegalOwner);
     }
@@ -75,7 +64,6 @@ pub fn process_reward(
     );
 
     let vault_info = next_account_info(account_info_iter)?;
-
     if vault_info.owner != &crate::id() {
         return Err(ProgramError::IllegalOwner);
     }
@@ -100,7 +88,6 @@ pub fn process_slash(
     );
 
     let vault_info = next_account_info(account_info_iter)?;
-
     if vault_info.owner != &crate::id() {
         return Err(ProgramError::IllegalOwner);
     }
