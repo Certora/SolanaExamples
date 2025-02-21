@@ -7,6 +7,8 @@ This repository contains examples of Solana applications that can be formally ve
 See the [Certora Solana Prover documentation](https://docs.certora.com/en/latest/docs/solana/index.html) 
 for instruction about how to install the prerequisites.
 
+Furthermore, you will need to install [just](https://just.systems/man/en/).
+
 ## Structure and Usage
 
 Each example has a `certora` subdirectory which contains files to perform the formal verification.

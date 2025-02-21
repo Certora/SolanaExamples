@@ -9,14 +9,12 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
-# This is the recommended list of flags to use to compile Solana projects.
-RUSTFLAGS = "-C llvm-args=--sbf-expand-memcpy-in-order -C llvm-args=--combiner-store-merging=false -C llvm-args=--combiner-load-merging=false -C llvm-args=--aggressive-instcombine-max-scan-instrs=0 -C llvm-args=--combiner-reduce-load-op-store-width=false -C llvm-args=--combiner-shrink-load-replace-store-with-store=false -C strip=none -C debuginfo=2"
 # Command to run for compiling the rust project.
-COMMAND = "cargo +solana build-sbf --features certora"
+COMMAND = "just build-sbf"
 
 # JSON FIELDS
 PROJECT_DIR = (SCRIPT_DIR).resolve()
-SOURCES = ["src/**/*.rs"]
+SOURCES = [ "src/**/*.rs" ]
 EXECUTABLES = "../../target/sbf-solana-solana/release/vault_application.so"
 VERBOSE = False
 
@@ -30,10 +28,6 @@ def run_command(command, to_stdout=False, env=None):
     """Runs the build command and dumps output to temporary files."""
     log(f"Running '{command}'")
     try:
-        new_env = os.environ.copy()
-        new_env.update(
-            {"RUSTFLAGS": RUSTFLAGS}
-        )
         if to_stdout:
             result = subprocess.run(
                 command,
@@ -103,7 +97,7 @@ def main():
     stdout_log, stderr_log, return_code = run_command(COMMAND, to_stdout, env)
 
     if stdout_log is not None:
-        log(f"Temporary log file located at:\n\t{stdout_log}\nand\n\t{stderr_log}")
+        log( f"Temporary log file located at:\n\t{stdout_log}\nand\n\t{stderr_log}")
 
     # JSON template
     output_data = {
