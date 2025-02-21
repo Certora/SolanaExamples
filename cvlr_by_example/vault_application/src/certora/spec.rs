@@ -22,23 +22,21 @@ impl From<&Vault> for FvVault {
     }
 }
 
-impl FvVault {
-    /// Verifies that a vault account remains solvent before and after a withdrawal
-    /// operation.
-    #[rule]
-    pub fn rule_vault_solvency_withdraw() {
-        let account_infos = cvlr_deserialize_nondet_accounts();
-        let account_info_iter = &mut account_infos.iter();
-        let vault_account: &AccountInfo = next_account_info(account_info_iter).unwrap();
+/// Verifies that a vault account remains solvent before and after a withdrawal
+/// operation.
+#[rule]
+pub fn rule_vault_solvency_withdraw() {
+    let account_infos = cvlr_deserialize_nondet_accounts();
+    let account_info_iter = &mut account_infos.iter();
+    let vault_account: &AccountInfo = next_account_info(account_info_iter).unwrap();
 
-        let fv_vault_pre: FvVault = fv_vault_from_acc_info!(vault_account);
-        assume_solvency!(fv_vault_pre);
+    let fv_vault_pre: FvVault = fv_vault_from_acc_info!(vault_account);
+    assume_solvency!(fv_vault_pre);
 
-        let shares: u64 = nondet();
-        let shares_instruction_data = &shares.to_le_bytes();
-        process_withdraw(&account_infos, shares_instruction_data).unwrap();
+    let shares: u64 = nondet();
+    let shares_instruction_data = &shares.to_le_bytes();
+    process_withdraw(&account_infos, shares_instruction_data).unwrap();
 
-        let fv_vault_post: FvVault = fv_vault_from_acc_info!(vault_account);
-        assert_solvency!(fv_vault_post);
-    }
+    let fv_vault_post: FvVault = fv_vault_from_acc_info!(vault_account);
+    assert_solvency!(fv_vault_post);
 }
