@@ -86,3 +86,23 @@ pub fn rule_vault_solvency_reward() {
     let fv_vault_post: FvVault = vault_account.into();
     assert_solvency!(fv_vault_post);
 }
+
+/// Verifies that a vault account remains solvent before and after a slash
+/// operation.
+/// This rule is expected to fail.
+#[rule]
+pub fn rule_vault_solvency_slash() {
+    let account_infos = cvlr_deserialize_nondet_accounts();
+    let account_info_iter = &mut account_infos.iter();
+    let vault_account: &AccountInfo = next_account_info(account_info_iter).unwrap();
+
+    let fv_vault_pre: FvVault = vault_account.into();
+    assume_solvency!(fv_vault_pre);
+
+    let token: u64 = nondet();
+    let token_instruction_data = &token.to_le_bytes();
+    process_slash(&account_infos, token_instruction_data).unwrap();
+
+    let fv_vault_post: FvVault = vault_account.into();
+    assert_solvency!(fv_vault_post);
+}
