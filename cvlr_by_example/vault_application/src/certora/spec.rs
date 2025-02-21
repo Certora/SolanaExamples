@@ -6,8 +6,6 @@ use cvlr_solana::cvlr_deserialize_nondet_accounts;
 use solana_program::account_info::{next_account_info, AccountInfo};
 
 /// Structure tracking the state for the formal verification (FV) of the vault.
-/// Uses unbounded-size mathematical integers instead of integers with fixed
-/// size.
 struct FvVault {
     shares_total: NativeInt,
     token_total: NativeInt,
