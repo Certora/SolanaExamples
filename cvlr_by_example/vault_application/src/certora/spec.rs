@@ -1,6 +1,6 @@
 //! This module contains the specification for the vault application.
 
-use crate::{assert_solvency, assume_solvency, fv_vault_from_acc_info, processor::*, state::Vault};
+use crate::{assert_solvency, assume_solvency, processor::*, state::Vault};
 use cvlr::{mathint::NativeInt, prelude::*};
 use cvlr_solana::cvlr_deserialize_nondet_accounts;
 use solana_program::account_info::{next_account_info, AccountInfo};
@@ -22,6 +22,14 @@ impl From<&Vault> for FvVault {
     }
 }
 
+impl<'a> From<&AccountInfo<'a>> for FvVault {
+    fn from(acc_info: &AccountInfo) -> FvVault {
+        let mut data = acc_info.data.borrow_mut();
+        let vault: &Vault = bytemuck::from_bytes_mut(&mut data[..]);
+        FvVault::from(vault)
+    }
+}
+
 /// Verifies that a vault account remains solvent before and after a withdrawal
 /// operation.
 #[rule]
@@ -30,13 +38,13 @@ pub fn rule_vault_solvency_withdraw() {
     let account_info_iter = &mut account_infos.iter();
     let vault_account: &AccountInfo = next_account_info(account_info_iter).unwrap();
 
-    let fv_vault_pre: FvVault = fv_vault_from_acc_info!(vault_account);
+    let fv_vault_pre: FvVault = vault_account.into();
     assume_solvency!(fv_vault_pre);
 
     let shares: u64 = nondet();
     let shares_instruction_data = &shares.to_le_bytes();
     process_withdraw(&account_infos, shares_instruction_data).unwrap();
 
-    let fv_vault_post: FvVault = fv_vault_from_acc_info!(vault_account);
+    let fv_vault_post: FvVault = vault_account.into();
     assert_solvency!(fv_vault_post);
 }
