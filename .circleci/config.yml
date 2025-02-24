@@ -88,6 +88,13 @@ commands:
             ln -sf $HOME/platform-tools-certora $PLATFORM_TOOLS_DIR/platform-tools
             # Optionally add platform-tools to PATH if needed:
             echo 'export PATH="$HOME/platform-tools-certora:$PATH"' >> $BASH_ENV
+  
+  install_just:
+    steps:
+      - run:
+          name: Install Just
+          command: |
+            cargo install just
 
   regression:
     steps:
@@ -125,6 +132,7 @@ jobs:
       - install_solana
       - install_platform_tools
       - install_certora_platform_tools
+      - install_just
       - regression
       - store_artifacts:
           path: Report.csv
