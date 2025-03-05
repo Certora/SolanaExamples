@@ -1,0 +1,9 @@
+{
+	"assertMessages": {},
+	"rules": {
+        "rule_vault_solvency_withdraw": "SUCCESS",
+        "rule_vault_solvency_deposit": "SUCCESS",
+        "rule_vault_solvency_reward": "SUCCESS",
+        "rule_vault_solvency_slash": "FAIL"
+	}
+}

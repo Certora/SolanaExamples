@@ -6,5 +6,8 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib", "lib"]
 
+[features]
+certora = []
+
 [dependencies]
 cvlr = { workspace = true }

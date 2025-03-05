@@ -14,8 +14,8 @@ COMMAND = "just build-sbf"
 
 # JSON FIELDS
 PROJECT_DIR = (SCRIPT_DIR).resolve()
-SOURCES = ["src/**/*.rs"]
-EXECUTABLES = "../../target/sbf-solana-solana/release/first_example.so"
+SOURCES = [ "src/**/*.rs" ]
+EXECUTABLES = "../../target/sbf-solana-solana/release/vault_application.so"
 VERBOSE = False
 
 
@@ -97,7 +97,7 @@ def main():
     stdout_log, stderr_log, return_code = run_command(COMMAND, to_stdout, env)
 
     if stdout_log is not None:
-        log(f"Temporary log file located at:\n\t{stdout_log}\nand\n\t{stderr_log}")
+        log( f"Temporary log file located at:\n\t{stdout_log}\nand\n\t{stderr_log}")
 
     # JSON template
     output_data = {
