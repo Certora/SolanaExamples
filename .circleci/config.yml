@@ -156,7 +156,7 @@ jobs:
               curl -X POST https://circleci.com/api/v2/project/gh/Certora/SolanaExamples/pipeline \
                 --header "Circle-Token: $CIRCLECI_API_TOKEN" \
                 --header "content-type: application/json" \
-                --data '{"branch":"main","parameters":{"run_nightly_report_analyze":true}}'
+                --data '{"branch":"liav/cert-8461-report-analyzer","parameters":{"run_nightly_report_analyze":true}}'
             fi
           when: always
       - store_artifacts:
