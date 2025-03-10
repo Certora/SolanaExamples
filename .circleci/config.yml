@@ -138,6 +138,7 @@ jobs:
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
       CERTORA_CI_CLIENT: << parameters.certora_ci_name >>
+      SLACK_CHANNEL: "solana-nightly-reports"
     working_directory: ~/repo
     steps:
       - checkout
@@ -169,6 +170,8 @@ jobs:
     docker:
       - image: *cvt
     resource_class: small
+    environment:
+      SLACK_CHANNEL: "solana-nightly-reports"
     working_directory: ~/repo
     steps:
       - checkout
