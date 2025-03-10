@@ -206,12 +206,14 @@ workflows:
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
           context: aws_staging
+
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
     jobs:
       - solana_nightly:
           certora_ci_name: Solana Examples Manual
           context: aws_staging
+
   analyze-nightly:
     when: << pipeline.parameters.run_nightly_report_analyze >>
     jobs:
