@@ -51,7 +51,7 @@ commands:
       - run:
           name: Install ReportAnalyzer
           command: |
-            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git
+            pip3.11 install git+ssh://git@github.com/Certora/ReportAnalysis.git
             # If pip installs scripts into ~/.local/bin, add it to PATH:
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
