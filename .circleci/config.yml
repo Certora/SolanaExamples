@@ -1,7 +1,9 @@
 version: 2.1
 
+
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
+
 
 parameters:
   run_workflow_nightly:
@@ -35,6 +37,7 @@ parameters:
   rule_sanity:
     default: "basic"
     type: string
+
 
 commands:
   install_conf_runner_infra:
@@ -124,6 +127,7 @@ commands:
                       --checks Verification \
                       --send_message
 
+
 jobs:
   solana_nightly:
     parameters:
@@ -190,6 +194,7 @@ jobs:
       - store_artifacts:
           path: Report.csv
           destination: reports
+
 
 workflows:
   version: 2
