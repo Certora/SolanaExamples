@@ -137,7 +137,7 @@ jobs:
         default: false
         type: boolean
     docker:
-      - image: &cvt public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
@@ -172,7 +172,7 @@ jobs:
   
   nightly_report_analyze:
     docker:
-      - image: *cvt
+      - image: *img
     resource_class: small
     environment:
       SLACK_CHANNEL: "solana-nightly-reports"
