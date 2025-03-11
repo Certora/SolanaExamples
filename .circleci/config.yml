@@ -1,10 +1,16 @@
 version: 2.1
 
+
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
 
+
 parameters:
   run_workflow_nightly:
+    default: false
+    type: boolean
+
+  run_nightly_report_analyze:
     default: false
     type: boolean
   
@@ -32,14 +38,23 @@ parameters:
     default: "basic"
     type: string
 
-commands:
 
+commands:
   install_conf_runner_infra:
     steps:
       - run:
           name: Install ConfRunnerInfra
           command: |
             pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
+            # If pip installs scripts into ~/.local/bin, add it to PATH:
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+  
+  install_report_analyzer:
+    steps:
+      - run:
+          name: Install ReportAnalyzer
+          command: |
+            pip3.11 install git+ssh://git@github.com/Certora/ReportAnalysis.git
             # If pip installs scripts into ~/.local/bin, add it to PATH:
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
@@ -112,17 +127,22 @@ commands:
                       --checks Verification \
                       --send_message
 
+
 jobs:
   solana_nightly:
     parameters:
       certora_ci_name:
         type: string
+      invoke_analyzer:
+        default: false
+        type: boolean
     docker:
-      - image: public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
       CERTORA_CI_CLIENT: << parameters.certora_ci_name >>
+      SLACK_CHANNEL: "solana-nightly-reports"
     working_directory: ~/repo
     steps:
       - checkout
@@ -134,11 +154,47 @@ jobs:
       - install_certora_platform_tools
       - install_just
       - regression
+      - run:
+          name: Trigger analyze report workflow
+          command: |
+            if [ "<< parameters.invoke_analyzer >>" == "true" ]; then
+              curl -X POST https://circleci.com/api/v2/project/gh/Certora/SolanaExamples/pipeline \
+                --header "Circle-Token: $CIRCLECI_API_TOKEN" \
+                --header "content-type: application/json" \
+                --data '{"branch":"main","parameters":{"run_nightly_report_analyze":true}}'
+            fi
+          when: always
       - store_artifacts:
           path: Report.csv
           destination: reports
       - store_test_results:
           path: ~/repo
+  
+  nightly_report_analyze:
+    docker:
+      - image: *img
+    resource_class: small
+    environment:
+      SLACK_CHANNEL: "solana-nightly-reports"
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - install_certora_cli
+      - configure_aws
+      - install_conf_runner_infra
+      - install_report_analyzer
+      - install_solana
+      - install_platform_tools
+      - install_certora_platform_tools
+      - install_just
+      - run:
+          name: Run nightly report analyzer
+          no_output_timeout: 5h 
+          command: ReportAnalyzer --ci_client "Solana Examples Nightly" --prover_run_cmd "certoraSolanaProver"
+      - store_artifacts:
+          path: Report.csv
+          destination: reports
+
 
 workflows:
   version: 2
@@ -153,10 +209,18 @@ workflows:
     jobs:
       - solana_nightly:
           certora_ci_name: Solana Examples Nightly
+          invoke_analyzer: true
           context: aws_staging
+
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
     jobs:
       - solana_nightly:
           certora_ci_name: Solana Examples Manual
+          context: aws_staging
+
+  analyze-nightly:
+    when: << pipeline.parameters.run_nightly_report_analyze >>
+    jobs:
+      - nightly_report_analyze:
           context: aws_staging
