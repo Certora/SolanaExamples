@@ -137,7 +137,7 @@ jobs:
         default: false
         type: boolean
     docker:
-      - image: &cvt public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
@@ -161,7 +161,7 @@ jobs:
               curl -X POST https://circleci.com/api/v2/project/gh/Certora/SolanaExamples/pipeline \
                 --header "Circle-Token: $CIRCLECI_API_TOKEN" \
                 --header "content-type: application/json" \
-                --data '{"branch":"main","parameters":{"run_nightly_report_analyze":true}}'
+                --data '{"branch":"liav/cert-8461-report-analyzer","parameters":{"run_nightly_report_analyze":true}}'
             fi
           when: always
       - store_artifacts:
@@ -172,7 +172,7 @@ jobs:
   
   nightly_report_analyze:
     docker:
-      - image: *cvt
+      - image: *img
     resource_class: small
     environment:
       SLACK_CHANNEL: "solana-nightly-reports"
@@ -190,7 +190,7 @@ jobs:
       - run:
           name: Run nightly report analyzer
           no_output_timeout: 5h 
-          command: ReportAnalyzer --ci_client "Solana Examples Nightly" --prover_run_cmd "certoraSolanaProver"
+          command: ReportAnalyzer --ci_client "Solana Examples Manual" --prover_run_cmd "certoraSolanaProver"
       - store_artifacts:
           path: Report.csv
           destination: reports
@@ -217,6 +217,7 @@ workflows:
     jobs:
       - solana_nightly:
           certora_ci_name: Solana Examples Manual
+          invoke_analyzer: true
           context: aws_staging
 
   analyze-nightly:
