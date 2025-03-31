@@ -208,9 +208,10 @@ workflows:
           invoke_analyzer: true
           context: aws_staging
 
-  solana_regression_workflow:
+  regression:
     jobs:
       - solana_regression:
+          name: Solana regression tests
           certora_ci_name: Solana Examples Regression
           context: aws_staging
 
