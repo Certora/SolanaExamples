@@ -211,7 +211,7 @@ workflows:
   regression:
     jobs:
       - solana_regression:
-          name: Solana_regression_tests
+          name: Solana-regression
           certora_ci_name: Solana Examples Regression
           context: aws_staging
 
