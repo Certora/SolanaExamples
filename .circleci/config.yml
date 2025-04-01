@@ -6,10 +6,6 @@ orbs:
 
 
 parameters:
-  run_workflow_nightly:
-    default: false
-    type: boolean
-
   run_nightly_report_analyze:
     default: false
     type: boolean
@@ -129,7 +125,7 @@ commands:
 
 
 jobs:
-  solana_nightly:
+  solana_regression:
     parameters:
       certora_ci_name:
         type: string
@@ -170,7 +166,7 @@ jobs:
       - store_test_results:
           path: ~/repo
   
-  nightly_report_analyze:
+  report_analyzer:
     docker:
       - image: *img
     resource_class: small
@@ -207,20 +203,20 @@ workflows:
               only:
                 - main
     jobs:
-      - solana_nightly:
+      - solana_regression:
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
           context: aws_staging
 
-  manual:
-    when: << pipeline.parameters.run_workflow_nightly >>
+  regression:
     jobs:
-      - solana_nightly:
-          certora_ci_name: Solana Examples Manual
+      - solana_regression:
+          name: Solana-regression
+          certora_ci_name: Solana Examples Regression
           context: aws_staging
 
   analyze-nightly:
     when: << pipeline.parameters.run_nightly_report_analyze >>
     jobs:
-      - nightly_report_analyze:
+      - report_analyzer:
           context: aws_staging
