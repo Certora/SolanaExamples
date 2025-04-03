@@ -2,6 +2,7 @@
 members = [
     "cvlr_by_example/first_example",
     "cvlr_by_example/vault_application",
+    "cvlr_by_example/cpis",
 ]
 resolver = "2"
 
