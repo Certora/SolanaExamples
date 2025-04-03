@@ -535,6 +535,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7c74b8349d32d297c9134b8c88677813a227df8f779daa29bfc29c183fe3dca6"
 
 [[package]]
+name = "cpis"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "cvlr",
+ "cvlr-solana",
+ "solana-program",
+ "spl-pod",
+ "spl-token",
+ "spl-token-2022",
+]
+
+[[package]]
 name = "cpufeatures"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
