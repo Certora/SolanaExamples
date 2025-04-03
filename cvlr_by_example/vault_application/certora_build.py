@@ -13,9 +13,9 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 COMMAND = "just build-sbf"
 
 # JSON FIELDS
-PROJECT_DIR = (SCRIPT_DIR).resolve()
-SOURCES = [ "src/**/*.rs" ]
-EXECUTABLES = "../../target/sbf-solana-solana/release/vault_application.so"
+PROJECT_DIR = (SCRIPT_DIR).resolve().parent.resolve().parent.resolve()
+SOURCES = [ "cvlr_by_example/vault_application/src/**/*.rs" ]
+EXECUTABLES = "target/sbf-solana-solana/release/vault_application.so"
 VERBOSE = False
 
 
