@@ -22,13 +22,14 @@ use solana_program::entrypoint;
 entrypoint!(process_instruction);
 
 pub fn process_instruction(
-    _program_id: &Pubkey,
+    program_id: &Pubkey,
     accounts: &[AccountInfo],
     instruction_data: &[u8],
 ) -> ProgramResult {
     let (instruction_discriminant, instruction_data) = instruction_data.split_at(1);
     match instruction_discriminant[0] {
         0 => processor::process_transfer(accounts, instruction_data)?,
+        1 => processor::process_create_account(program_id, accounts, instruction_data)?,
         _ => msg!("Error: unknown instruction"),
     }
     Ok(())
