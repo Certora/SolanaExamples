@@ -13,8 +13,11 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 COMMAND = "just build-sbf"
 
 # JSON FIELDS
+# This example uses Cargo Workspaces (https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html), and the root of the project is two levels up.
 PROJECT_DIR = (SCRIPT_DIR).resolve().parent.resolve().parent.resolve()
+# Relative from PROJECT_DIR. 
 SOURCES = [ "cvlr_by_example/vault_application/src/**/*.rs" ]
+# Relative from PROJECT_DIR. 
 EXECUTABLES = "target/sbf-solana-solana/release/vault_application.so"
 VERBOSE = False
 
