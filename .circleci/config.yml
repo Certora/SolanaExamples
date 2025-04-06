@@ -33,6 +33,10 @@ parameters:
   rule_sanity:
     default: "basic"
     type: string
+  
+  run_workflow_nightly:
+    default: false
+    type: boolean
 
 
 commands:
@@ -219,4 +223,12 @@ workflows:
     when: << pipeline.parameters.run_nightly_report_analyze >>
     jobs:
       - report_analyzer:
+          context: aws_staging
+
+  # run from CircleCI with the boolean parameter run_workflow_nightly set to true
+  manual:
+    when: << pipeline.parameters.run_workflow_nightly >>
+    jobs:
+      - solana_regression:
+          certora_ci_name: Solana Examples Regression Manual
           context: aws_staging
