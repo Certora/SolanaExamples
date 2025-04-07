@@ -113,3 +113,77 @@ fn invoke_create_account<'a>(
     cvlr::cvlr_assume!(new_account.try_borrow_mut_data()?.len() == space as usize);
     Ok(())
 }
+
+pub fn process_transfer_token_2022(
+    accounts: &[AccountInfo],
+    instruction_data: &[u8],
+) -> Result<(), ProgramError> {
+    let token_program = &accounts[0];
+    let from = &accounts[1];
+    let mint = &accounts[2];
+    let to = &accounts[3];
+    let authority = &accounts[4];
+    let amount = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
+    let decimals = u8::from_le_bytes(
+        instruction_data[8..9]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
+    invoke_transfer_token_2022(token_program, from, mint, to, authority, amount, decimals)?;
+    Ok(())
+}
+
+#[cfg(not(feature = "mockcpis"))]
+fn invoke_transfer_token_2022<'a>(
+    token_program: &AccountInfo<'a>,
+    from: &AccountInfo<'a>,
+    mint: &AccountInfo<'a>,
+    to: &AccountInfo<'a>,
+    authority: &AccountInfo<'a>,
+    amount: u64,
+    decimals: u8,
+) -> Result<(), ProgramError> {
+    let instruction = spl_token_2022::instruction::transfer_checked(
+        token_program.key,
+        from.key,
+        mint.key,
+        to.key,
+        authority.key,
+        &[],
+        amount,
+        decimals,
+    )?;
+    invoke(
+        &instruction,
+        &[from.clone(), mint.clone(), to.clone(), authority.clone()],
+    )?;
+    Ok(())
+}
+
+#[cfg(feature = "mockcpis")]
+fn invoke_transfer_token_2022<'a>(
+    token_program: &AccountInfo<'a>,
+    from: &AccountInfo<'a>,
+    mint: &AccountInfo<'a>,
+    to: &AccountInfo<'a>,
+    authority: &AccountInfo<'a>,
+    amount: u64,
+    decimals: u8,
+) -> Result<(), ProgramError> {
+    cvlr_solana::token::spl_token_transfer(from, to, authority, amount).unwrap();
+    let _instruction = spl_token_2022::instruction::transfer_checked(
+        token_program.key,
+        from.key,
+        mint.key,
+        to.key,
+        authority.key,
+        &[],
+        amount,
+        decimals,
+    )?;
+    Ok(())
+}
