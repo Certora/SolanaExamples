@@ -261,3 +261,81 @@ fn invoke_transfer_token_2022<'a>(
     )?;
     Ok(())
 }
+
+pub fn process_mint_token_2022(
+    accounts: &[AccountInfo],
+    instruction_data: &[u8],
+) -> Result<(), ProgramError> {
+    let token_program = &accounts[0];
+    let mint = &accounts[1];
+    let destination = &accounts[2];
+    let mint_authority = &accounts[3];
+
+    let amount = u64::from_le_bytes(
+        instruction_data[..8]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
+    let decimals = u8::from_le_bytes(
+        instruction_data[8..9]
+            .try_into()
+            .expect("Invalid slice length"),
+    );
+
+    invoke_mint_token_2022(
+        token_program,
+        mint,
+        destination,
+        mint_authority,
+        amount,
+        decimals,
+    )?;
+    Ok(())
+}
+
+#[cfg(not(feature = "mockcpis"))]
+fn invoke_mint_token_2022<'a>(
+    token_program: &AccountInfo<'a>,
+    mint: &AccountInfo<'a>,
+    destination: &AccountInfo<'a>,
+    mint_authority: &AccountInfo<'a>,
+    amount: u64,
+    decimals: u8,
+) -> Result<(), ProgramError> {
+    let instruction = spl_token_2022::instruction::mint_to_checked(
+        token_program.key,
+        mint.key,
+        destination.key,
+        mint_authority.key,
+        &[],
+        amount,
+        decimals,
+    )?;
+    invoke(
+        &instruction,
+        &[mint.clone(), destination.clone(), mint_authority.clone()],
+    )?;
+    Ok(())
+}
+
+#[cfg(feature = "mockcpis")]
+fn invoke_mint_token_2022<'a>(
+    token_program: &AccountInfo<'a>,
+    mint: &AccountInfo<'a>,
+    destination: &AccountInfo<'a>,
+    mint_authority: &AccountInfo<'a>,
+    amount: u64,
+    decimals: u8,
+) -> Result<(), ProgramError> {
+    cvlr_solana::token::spl_mint_to(mint, destination, mint_authority, amount).unwrap();
+    let _instruction = spl_token_2022::instruction::mint_to_checked(
+        token_program.key,
+        mint.key,
+        destination.key,
+        mint_authority.key,
+        &[],
+        amount,
+        decimals,
+    )?;
+    Ok(())
+}
