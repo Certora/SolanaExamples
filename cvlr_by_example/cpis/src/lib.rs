@@ -30,6 +30,7 @@ pub fn process_instruction(
     match instruction_discriminant[0] {
         0 => processor::process_transfer(accounts, instruction_data)?,
         1 => processor::process_create_account(program_id, accounts, instruction_data)?,
+        2 => processor::process_transfer_token_2022(accounts, instruction_data)?,
         _ => msg!("Error: unknown instruction"),
     }
     Ok(())
