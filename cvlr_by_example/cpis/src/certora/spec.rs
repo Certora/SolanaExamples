@@ -3,10 +3,7 @@
 use crate::{get_account_balance, get_account_space, processor::*};
 use cvlr::prelude::*;
 use cvlr_solana::{cvlr_deserialize_nondet_accounts, token::spl_token_account_get_amount};
-use solana_program::{
-    account_info::{next_account_info, AccountInfo},
-    pubkey::Pubkey,
-};
+use solana_program::account_info::{next_account_info, AccountInfo};
 
 #[rule]
 pub fn rule_transfer_transfers() {
@@ -57,6 +54,70 @@ pub fn rule_create_account_creates() {
     cvlr_assert!(payer_account_balance_post == payer_account_balance_pre - lamports);
     cvlr_assert!(new_account_balance_post == lamports);
     cvlr_assert!(new_account_space == space as usize);
+}
+
+#[rule]
+pub fn rule_transfer_token_transfers_different_wallets() {
+    let account_infos = cvlr_deserialize_nondet_accounts();
+    let account_info_iter = &mut account_infos.iter();
+    let token_program: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let from: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let _mint: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let to: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let _authority: &AccountInfo = next_account_info(account_info_iter).unwrap();
+
+    let amount: u64 = nondet();
+    let decimals: u8 = nondet();
+    let mut token_instruction_data = Vec::new();
+    token_instruction_data.extend_from_slice(&amount.to_le_bytes());
+    token_instruction_data.extend_from_slice(&decimals.to_le_bytes());
+
+    cvlr_assume!(from.key != to.key);
+
+    let from_wallet_amount_pre = spl_token_account_get_amount(from);
+    let to_wallet_amount_pre = spl_token_account_get_amount(to);
+
+    process_transfer_token(&account_infos, &token_instruction_data).unwrap();
+
+    let from_wallet_amount_post = spl_token_account_get_amount(from);
+    let to_wallet_amount_post = spl_token_account_get_amount(to);
+
+    cvlr_assert!(*token_program.key == spl_token::id());
+    cvlr_assert!(from_wallet_amount_post == from_wallet_amount_pre - amount);
+    cvlr_assert!(to_wallet_amount_post == to_wallet_amount_pre + amount);
+}
+
+#[rule]
+pub fn rule_transfer_token_transfers_same_wallet() {
+    let account_infos = cvlr_deserialize_nondet_accounts();
+    let account_info_iter = &mut account_infos.iter();
+    let token_program: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let from: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let _mint: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let to: &AccountInfo = next_account_info(account_info_iter).unwrap();
+    let _authority: &AccountInfo = next_account_info(account_info_iter).unwrap();
+
+    let amount: u64 = nondet();
+    let decimals: u8 = nondet();
+    let mut token_instruction_data = Vec::new();
+    token_instruction_data.extend_from_slice(&amount.to_le_bytes());
+    token_instruction_data.extend_from_slice(&decimals.to_le_bytes());
+
+    let from_wallet_amount_pre = spl_token_account_get_amount(from);
+    let to_wallet_amount_pre = spl_token_account_get_amount(to);
+
+    // Assume from and to are the same account.
+    cvlr_assume!(from.key == to.key);
+    cvlr_assume!(from_wallet_amount_pre == to_wallet_amount_pre);
+
+    process_transfer_token(&account_infos, &token_instruction_data).unwrap();
+
+    let from_wallet_amount_post = spl_token_account_get_amount(from);
+    let to_wallet_amount_post = spl_token_account_get_amount(to);
+
+    cvlr_assert!(*token_program.key == spl_token::id());
+    cvlr_assert!(from_wallet_amount_post == from_wallet_amount_pre);
+    cvlr_assert!(to_wallet_amount_post == to_wallet_amount_pre);
 }
 
 #[rule]
