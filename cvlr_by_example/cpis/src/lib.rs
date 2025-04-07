@@ -34,6 +34,8 @@ pub fn process_instruction(
         3 => processor::process_transfer_token_2022(accounts, instruction_data)?,
         4 => processor::process_mint_token(accounts, instruction_data)?,
         5 => processor::process_mint_token_2022(accounts, instruction_data)?,
+        6 => processor::process_burn_token(accounts, instruction_data)?,
+        7 => processor::process_burn_token_2022(accounts, instruction_data)?,
         _ => msg!("Error: unknown instruction"),
     }
     Ok(())
