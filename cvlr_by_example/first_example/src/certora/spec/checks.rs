@@ -75,3 +75,19 @@ pub fn rule_satisfy_assert() {
     cvlr_assert!(x < 10);
     cvlr_satisfy!(x < 1);
 }
+
+/// This rule demonstrates the use of the prover flag `multi_assert_check`
+/// When running this rule in `multi_assert_mode`, see config MultiAssertMode.conf, 
+/// the rule has three children. Each children will show the verified/violated 
+/// results of each individual assert. 
+#[rule]
+pub fn rule_multi_assert() {
+    let x: u64 = nondet(); 
+    let y: u64 = nondet(); 
+    let z: u64 = nondet(); 
+    cvlr_assert!(x < 10); // This assert is expected to fail.
+    cvlr_assert!(y < 20); // This assert is expected to fail.
+
+    cvlr_assume!(z < 10);
+    cvlr_assert_lt!(z, 999); // This assert is expected to be verified.
+}
