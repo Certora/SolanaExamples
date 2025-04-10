@@ -1,6 +1,6 @@
 {
 	"assertMessages": {},
 	"rules": {
-		"rule_multi_assert": "FAIL",
+		"rule_multi_assert": "FAIL"
 	}
 }
