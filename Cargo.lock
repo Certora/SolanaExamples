@@ -469,9 +469,9 @@ checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
 name = "cc"
-version = "1.2.17"
+version = "1.2.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fcb57c740ae1daf453ae85f16e37396f672b039e00d9d866e07ddb24e328e3a"
+checksum = "525046617d8376e3db1deffb079e91cef90a89fc3ca5c185bbf8c9ecdd15cd5c"
 dependencies = [
  "jobserver",
  "libc",
@@ -620,31 +620,29 @@ dependencies = [
 [[package]]
 name = "cvlr"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0411617d16997708dd6551dc8b9d861798331b0871d4ff6ff0fce8f7b486ed75"
 dependencies = [
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
+ "cvlr-asserts",
  "cvlr-early-panic",
  "cvlr-hook",
- "cvlr-log 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
+ "cvlr-log",
  "cvlr-macros",
- "cvlr-mathint 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
- "cvlr-nondet 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
+ "cvlr-mathint",
+ "cvlr-nondet",
 ]
 
 [[package]]
 name = "cvlr-asserts"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
-
-[[package]]
-name = "cvlr-asserts"
-version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr.git#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "726eb8537abb9e0ba3e09dade092f5da210b42e7852d78cc771c1d936749f0dd"
 
 [[package]]
 name = "cvlr-early-panic"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dcfc9ae17fe2736886c14a6dd9b03f5b69097919d4b699726730f3aa8e287d14"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -654,7 +652,8 @@ dependencies = [
 [[package]]
 name = "cvlr-hook"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4cc6fc3736df35bacca99a41f48c2a2c4ec4c177bdc755c427c75a6ed297dcf8"
 dependencies = [
  "quote",
  "syn 2.0.100",
@@ -663,23 +662,17 @@ dependencies = [
 [[package]]
 name = "cvlr-log"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cfbcdd22d4b77b1b6c625d344f4b3bf3b82c32fa4e99d324c5d7a28c0b3248c0"
 dependencies = [
- "cvlr-mathint 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
-]
-
-[[package]]
-name = "cvlr-log"
-version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr.git#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
-dependencies = [
- "cvlr-mathint 0.4.0 (git+https://github.com/Certora/cvlr.git)",
+ "cvlr-mathint",
 ]
 
 [[package]]
 name = "cvlr-macros"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b8651ff67bc74ff918249f8ef1d92142e28e7da6c7d3066b9a797686ef56470e"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -690,47 +683,33 @@ dependencies = [
 [[package]]
 name = "cvlr-mathint"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb94e0fc4b0bcaf1f9363c08bb43535f105b243c63014762e30575ad850be58c"
 dependencies = [
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
- "cvlr-nondet 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
-]
-
-[[package]]
-name = "cvlr-mathint"
-version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr.git#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
-dependencies = [
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr.git)",
- "cvlr-nondet 0.4.0 (git+https://github.com/Certora/cvlr.git)",
+ "cvlr-asserts",
+ "cvlr-nondet",
 ]
 
 [[package]]
 name = "cvlr-nondet"
 version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr?branch=main#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "207b941a8d3fa7f923791b22a3acfdc2051b6b9df32b9d87edaec9fba0a72156"
 dependencies = [
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr?branch=main)",
-]
-
-[[package]]
-name = "cvlr-nondet"
-version = "0.4.0"
-source = "git+https://github.com/Certora/cvlr.git#b52eda5f9c510ba2ab61a21f265281bd6d7c1182"
-dependencies = [
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr.git)",
+ "cvlr-asserts",
 ]
 
 [[package]]
 name = "cvlr-solana"
-version = "0.3.0"
-source = "git+https://github.com/Certora/cvlr-solana?branch=main#332141765b46f8f7e9cb5fb75812b0c8beef99d2"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6c3f7b885506a6c624c093233dcdc4994b6bd8e4b9e3b499a943015ddc8e4f3"
 dependencies = [
  "arrayref",
- "cvlr-asserts 0.4.0 (git+https://github.com/Certora/cvlr.git)",
- "cvlr-log 0.4.0 (git+https://github.com/Certora/cvlr.git)",
- "cvlr-mathint 0.4.0 (git+https://github.com/Certora/cvlr.git)",
- "cvlr-nondet 0.4.0 (git+https://github.com/Certora/cvlr.git)",
+ "cvlr-asserts",
+ "cvlr-log",
+ "cvlr-mathint",
+ "cvlr-nondet",
  "solana-program",
  "spl-token",
  "spl-token-2022",
@@ -1029,9 +1008,9 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.8.0"
+version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3954d50fe15b02142bf25d3b8bdadb634ec3948f103d04ffe3031bc8fe9d7058"
+checksum = "cea70ddb795996207ad57735b50c5982d8844f38ba9ee5f1aedcfb708a2aa11e"
 dependencies = [
  "equivalent",
  "hashbrown 0.15.2",
@@ -1515,9 +1494,9 @@ dependencies = [
 
 [[package]]
 name = "redox_syscall"
-version = "0.5.10"
+version = "0.5.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b8c0c260b63a8219631167be35e6a988e9554dbd323f8bd08439c8ed1302bd1"
+checksum = "d2f103c6d277498fbceb16e84d317e2a400f160f46904d5f5410848c829511a3"
 dependencies = [
  "bitflags",
 ]
@@ -1729,9 +1708,9 @@ dependencies = [
 
 [[package]]
 name = "smallvec"
-version = "1.14.0"
+version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7fcf8323ef1faaee30a44a340193b1ac6814fd9b7b4e88e9d4519a3e4abe1cfd"
+checksum = "8917285742e9f3e1683f0a9c4e6b57960b7314d0b08d30d1ecd426713ee2eee9"
 
 [[package]]
 name = "solana-frozen-abi"
@@ -2508,9 +2487,9 @@ checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 
 [[package]]
 name = "winnow"
-version = "0.7.4"
+version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e97b544156e9bebe1a0ffbc03484fc1ffe3100cbce3ffb17eac35f7cdd7ab36"
+checksum = "63d3fcd9bba44b03821e7d699eeee959f3126dcc4aa8e4ae18ec617c2a5cea10"
 dependencies = [
  "memchr",
 ]
