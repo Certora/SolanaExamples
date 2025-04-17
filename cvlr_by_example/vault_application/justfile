@@ -1,1 +1,5 @@
-import '../../justfile'
+project_root := canonicalize("../../") 
+crate_root := canonicalize(".") 
+sbf_file := project_root / "target/sbf-solana-solana/release/vault_application.so"
+
+import '../../just/main.just'
