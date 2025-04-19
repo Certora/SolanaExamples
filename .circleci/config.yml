@@ -22,10 +22,6 @@ parameters:
     default: "master"
     type: string
 
-  platform_tools:
-    default: "v1.41-certora/platform-tools-linux-x86_64.tar.bz2"
-    type: string
-
   extra_rustflags:
     default: ""
     type: string
@@ -80,30 +76,21 @@ commands:
             # Persist the updated PATH so that Solana binaries are available in later steps.
             echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> $BASH_ENV
 
-  install_platform_tools:
+  install_certora_sbf:
     steps:
       - run:
-          name: Install platform-tools
+          name: Install certora-sbf 
           command: |
-            cd /root/.local/share/solana/install/active_release/bin/sdk/sbf
-            source env.sh
+            rustup toolchain install 1.81
+            cargo +1.81 install cargo-certora-sbf
 
   install_certora_platform_tools:
-    steps:
+     steps:
       - run:
-          name: Install Certora platform-tools
+          name: Install Certora Platform Tools 
           command: |
-            source ~/.profile
-            export PLATFORM_TOOLS_DIR=$HOME/.cache/solana/v1.41
-            mkdir $HOME/platform-tools-certora
-            cd $HOME
-            wget https://github.com/Certora/certora-solana-platform-tools/releases/download/<< pipeline.parameters.platform_tools >>
-            tar -xvjf platform-tools-linux-x86_64.tar.bz2 -C $HOME/platform-tools-certora
-            mv $PLATFORM_TOOLS_DIR/platform-tools $PLATFORM_TOOLS_DIR/platform-tools.backup
-            ln -sf $HOME/platform-tools-certora $PLATFORM_TOOLS_DIR/platform-tools
-            # Optionally add platform-tools to PATH if needed:
-            echo 'export PATH="$HOME/platform-tools-certora:$PATH"' >> $BASH_ENV
-  
+            cargo certora-sbf --no-build --force-tools-install -vvv
+
   install_just:
     steps:
       - run:
@@ -150,7 +137,7 @@ jobs:
       - configure_aws
       - install_conf_runner_infra
       - install_solana
-      - install_platform_tools
+      - install_certora_sbf
       - install_certora_platform_tools
       - install_just
       - regression
@@ -184,7 +171,7 @@ jobs:
       - install_conf_runner_infra
       - install_report_analyzer
       - install_solana
-      - install_platform_tools
+      - install_certora_sbf
       - install_certora_platform_tools
       - install_just
       - run:
