@@ -619,9 +619,9 @@ dependencies = [
 
 [[package]]
 name = "cvlr"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0411617d16997708dd6551dc8b9d861798331b0871d4ff6ff0fce8f7b486ed75"
+checksum = "106dc78e75b6df3ed956733b265d72d94186b4d373c26b703408c5c08f8eabe2"
 dependencies = [
  "cvlr-asserts",
  "cvlr-early-panic",
@@ -634,15 +634,15 @@ dependencies = [
 
 [[package]]
 name = "cvlr-asserts"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "726eb8537abb9e0ba3e09dade092f5da210b42e7852d78cc771c1d936749f0dd"
+checksum = "e5986ab535703c6fff042bd257c0f3d591f6fcd4c611ec117c93807fc4444804"
 
 [[package]]
 name = "cvlr-early-panic"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcfc9ae17fe2736886c14a6dd9b03f5b69097919d4b699726730f3aa8e287d14"
+checksum = "7c12f059e98caf58c289f08da48eeef11f2549afdf0fd7d3f3c9a08039040500"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -651,9 +651,9 @@ dependencies = [
 
 [[package]]
 name = "cvlr-hook"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cc6fc3736df35bacca99a41f48c2a2c4ec4c177bdc755c427c75a6ed297dcf8"
+checksum = "dc2d32c7536052a4b72c27d2dce9a83b6ada5dd98756b850e6a1540fe80eabd7"
 dependencies = [
  "quote",
  "syn 2.0.100",
@@ -661,18 +661,18 @@ dependencies = [
 
 [[package]]
 name = "cvlr-log"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cfbcdd22d4b77b1b6c625d344f4b3bf3b82c32fa4e99d324c5d7a28c0b3248c0"
+checksum = "39b0ca4fea3f19baddd20ac6209fd064211d61c9c95715f1a11c17c5c7e17cf2"
 dependencies = [
  "cvlr-mathint",
 ]
 
 [[package]]
 name = "cvlr-macros"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8651ff67bc74ff918249f8ef1d92142e28e7da6c7d3066b9a797686ef56470e"
+checksum = "2ddb1aab9e865d13f5b97d5eb3b8417457543b725e9d95febb8bcd9e124a4414"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -682,9 +682,9 @@ dependencies = [
 
 [[package]]
 name = "cvlr-mathint"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb94e0fc4b0bcaf1f9363c08bb43535f105b243c63014762e30575ad850be58c"
+checksum = "4fc5daeea0bf7dae12a53753380b78de43be6394382b9eda9e735d9d52449e47"
 dependencies = [
  "cvlr-asserts",
  "cvlr-nondet",
@@ -692,9 +692,9 @@ dependencies = [
 
 [[package]]
 name = "cvlr-nondet"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "207b941a8d3fa7f923791b22a3acfdc2051b6b9df32b9d87edaec9fba0a72156"
+checksum = "5d2937f0430a15d737494a573de77786c1407e40488f13939b56daccab9e6949"
 dependencies = [
  "cvlr-asserts",
 ]
