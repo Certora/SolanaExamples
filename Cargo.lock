@@ -701,9 +701,9 @@ dependencies = [
 
 [[package]]
 name = "cvlr-solana"
-version = "0.4.3"
+version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6c3f7b885506a6c624c093233dcdc4994b6bd8e4b9e3b499a943015ddc8e4f3"
+checksum = "72ccc6a70afb97ac5aa5417fffb95b14784e597c3d8512a508fa4b2bc2da60e3"
 dependencies = [
  "arrayref",
  "cvlr-asserts",
