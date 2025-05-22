@@ -9,7 +9,7 @@ resolver = "2"
 overflow-checks = true
 
 [workspace.dependencies]
-cvlr = "0.4.0" 
+cvlr = "0.4" 
 cvlr-solana = "0.4"
 solana-program = "1.18"
 spl-token = { version = "4", features = ["no-entrypoint"] }
