@@ -88,6 +88,11 @@
 
 #[type((*i32)(r1+0):num)]
 ^solana_program::program::invoke_signed_unchecked$
+#[type((*i32)(r1+0):num)]
+^solana_program::program::invoke$
+
+; TODO: write summary for invoke (probably same as previous) - but check the
+;Rust code
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Anchor-specific summaries

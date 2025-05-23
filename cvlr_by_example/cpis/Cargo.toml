@@ -22,3 +22,8 @@ spl-pod = { workspace = true }
 
 cvlr = { workspace = true }
 cvlr-solana = { workspace = true }
+
+[package.metadata.certora]
+sources = ["Cargo.toml", "src/**/*.rs"]
+solana_inlining = ["../../certora/summaries/cvlr_inlining_core.txt"]
+solana_summaries = ["../../certora/summaries/cvlr_summaries_core.txt"]

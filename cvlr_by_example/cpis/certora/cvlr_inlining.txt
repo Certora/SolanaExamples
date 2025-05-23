@@ -121,7 +121,7 @@
 #[inline] ^solana_program::account_info::AccountInfo::try_borrow_mut_data$
 #[inline] ^solana_program::account_info::AccountInfo::data_is_empty$
 #[inline] ^solana_program::program::invoke_signed$
-#[inline] ^solana_program::program::invoke$
+#[inline(never)] ^solana_program::program::invoke$
 #[inline] ^solana_program::program_pack::Pack::unpack$
 #[inline] ^solana_program::hash::Hash::new_from_array$
 #[inline] ^solana_program::sysvar::clock::<impl solana_program::sysvar::Sysvar for solana_program::clock::Clock>::get$

@@ -1,5 +1,11 @@
 use solana_program::{
-    account_info::AccountInfo, declare_id, entrypoint::ProgramResult, pubkey::Pubkey,
+    account_info::AccountInfo,
+    declare_id,
+    entrypoint::ProgramResult,
+    instruction::{AccountMeta, Instruction},
+    pubkey::Pubkey,
+    system_instruction::SystemInstruction,
+    system_program,
 };
 mod processor;
 
