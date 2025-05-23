@@ -6,7 +6,7 @@
 		"rule_multi_assert": "FAIL",
 		"rule_satisfy": "SUCCESS",
 		"rule_satisfy_assert": "SUCCESS",
-		"rule_vacuous": "SUCCESS",
+		"rule_vacuous": "SANITY_FAIL",
 		"rule_with_assumptions": "SUCCESS"
 	}
 }

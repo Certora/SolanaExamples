@@ -81,8 +81,8 @@ commands:
       - run:
           name: Install certora-sbf 
           command: |
-            rustup toolchain install 1.81
-            cargo +1.81 install cargo-certora-sbf
+            rustup toolchain install 1.86
+            cargo +1.86 install cargo-certora-sbf
 
   install_certora_platform_tools:
      steps:
