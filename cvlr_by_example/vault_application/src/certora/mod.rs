@@ -1,2 +1,2 @@
-mod spec;
 mod macros;
+mod spec;
