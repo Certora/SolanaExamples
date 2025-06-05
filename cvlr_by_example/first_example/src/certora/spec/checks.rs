@@ -13,7 +13,7 @@ pub fn rule_faulty_add_performs_addition() {
     // In case there is a counter example, print the values of x, y, and the
     // result of the addition.
     clog!(x, y, faulty_add_result);
-    cvlr_assert_eq!(faulty_add_result,  x + y);
+    cvlr_assert_eq!(faulty_add_result, x + y);
 }
 
 /// Verifies that `correct_add` performs additions. This rule is expected to be
@@ -77,14 +77,14 @@ pub fn rule_satisfy_assert() {
 }
 
 /// This rule demonstrates the use of the prover flag `multi_assert_check`
-/// When running this rule in `multi_assert_mode`, see config MultiAssertMode.conf, 
-/// the rule has three children. Each children will show the verified/violated 
-/// results of each individual assert. 
+/// When running this rule in `multi_assert_mode`, see config MultiAssertMode.conf,
+/// the rule has three children. Each children will show the verified/violated
+/// results of each individual assert.
 #[rule]
 pub fn rule_multi_assert() {
-    let x: u64 = nondet(); 
-    let y: u64 = nondet(); 
-    let z: u64 = nondet(); 
+    let x: u64 = nondet();
+    let y: u64 = nondet();
+    let z: u64 = nondet();
     cvlr_assert!(x < 10); // This assert is expected to fail.
     cvlr_assert!(y < 20); // This assert is expected to fail.
 
