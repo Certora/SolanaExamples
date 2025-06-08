@@ -116,6 +116,22 @@ commands:
 
 
 jobs:
+  check-release-sbf:
+    docker:
+      - image: public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+    resource_class: small
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Python deps
+          command: |
+            pip3.11 install requests semver
+      - run:
+          name: Check certora-cli releases & trigger SolanaExamples CI
+          command: |
+            python3 .circleci/ReleaseCheckAndTrigger_solana.py
+
   solana_regression:
     parameters:
       certora_ci_name:
@@ -187,6 +203,19 @@ jobs:
 
 workflows:
   version: 2
+  # This workflow is triggered by a nightly schedule, if a new certora-cli release is available it will trigger the solana_regression workflow on the main branch.
+  check-and-trigger:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only:
+                - pre-release
+    jobs:
+      - check-release-sbf:
+          context: aws_staging
+
   # This workflow is triggered by a nightly schedule, on the pre-release branch (validated on certora-cli-alpha release).
   nightly:
     triggers:
