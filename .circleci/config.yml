@@ -187,6 +187,7 @@ jobs:
 
 workflows:
   version: 2
+  # This workflow is triggered by a nightly schedule, on the pre-release branch (validated on certora-cli-alpha release).
   nightly:
     triggers:
       - schedule:
@@ -203,6 +204,7 @@ workflows:
           certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
 
+  # This workflow is triggered by creating a PR from pre-release to main. (validated on certora-cli main release)
   regression:
     jobs:
       - solana_regression:
