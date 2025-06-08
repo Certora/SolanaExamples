@@ -197,6 +197,7 @@ workflows:
                 - pre-release
     jobs:
       - solana_regression:
+          name: Solana Examples Nightly
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
           certora_cli_package: << pipeline.parameters.certora_cli_package >>
