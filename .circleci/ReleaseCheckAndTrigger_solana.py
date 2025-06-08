@@ -13,9 +13,11 @@ RELEASE_URL = "https://pypi.org/pypi/certora-cli/json"
 CIRCLECI_TOKEN = os.getenv("CIRCLECI_API_TOKEN")
 if not CIRCLECI_TOKEN:
     raise EnvironmentError("CIRCLECI_API_TOKEN environment variable is not set.")
+print(CIRCLECI_TOKEN)
 
 # ci url for the SolanaExamples project
 CIRCLECI_URL = "https://circleci.com/api/v2/project/gh/Certora/SolanaExamples/pipeline"
+
 
 
 def fetch_package_info(url: str) -> dict[str, Any] | None:
@@ -72,14 +74,20 @@ def get_latest_release_date(info: dict[str, Any]) -> datetime:
 
 # Trigger the CircleCI workflow if a new release has been made in the last 24 hours
 def trigger_workflow_if_new():
-    requests.post(
+    headers = {"Circle-Token": CIRCLECI_TOKEN, "Content-Type": "application/json"}
+    payload = {"branch": "main"}
+    
+    resp = requests.post(
         CIRCLECI_URL,
-        headers={ "Circle-Token": os.environ["CIRCLECI_API_TOKEN"], "Content-Type": "application/json" },
-        json={
-            "branch": "main",
-        }
-    ).raise_for_status()
-
+        headers=headers,
+        json=payload
+    )
+    
+    print("→ Response status:", resp.status_code)
+    print("→ Response headers:", dict(resp.headers))
+    print("→ Response body:", resp.text)
+    
+    resp.raise_for_status()
 
 def main():
     print("Checking for new releases of certora-cli...")
@@ -97,7 +105,6 @@ def main():
         trigger_workflow_if_new()
     else:
         print("No new release in the last 24 hours. No action taken.")
-
 
 if __name__ == "__main__":
     main()
