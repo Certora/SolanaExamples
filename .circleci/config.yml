@@ -125,13 +125,11 @@ jobs:
       - checkout
       - run:
           name: Install Python deps
-          command: |
-            pip3.11 install requests semver
+          command: pip3.11 install requests semver
       - run:
           name: Check certora-cli releases & trigger SolanaExamples CI
-          command: |
-            python3 .circleci/ReleaseCheckAndTrigger_solana.py
-
+          command: python3 .circleci/ReleaseCheckAndTrigger_solana.py
+            
   solana_regression:
     parameters:
       certora_ci_name:
@@ -213,8 +211,7 @@ workflows:
               only:
                 - pre-release
     jobs:
-      - check-release-sbf:
-          context: aws_staging
+      - check-release-sbf
 
   # This workflow is triggered by a nightly schedule, on the pre-release branch (validated on certora-cli-alpha release).
   nightly:
