@@ -123,6 +123,8 @@ jobs:
       invoke_analyzer:
         default: false
         type: boolean
+      certora_cli_package:         
+        type: string
     docker:
       - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
@@ -192,7 +194,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - pre-release
     jobs:
       - solana_regression:
           certora_ci_name: Solana Examples Nightly
@@ -202,9 +204,15 @@ workflows:
   regression:
     jobs:
       - solana_regression:
+          filters:
+            branches:
+              only:
+                - main
           name: Solana-regression
           certora_ci_name: Solana Examples Regression
+          certora_cli_package: certora-cli
           context: aws_staging
+
 
   analyze-nightly:
     when: << pipeline.parameters.run_nightly_report_analyze >>
