@@ -67,7 +67,7 @@ def get_latest_release_date(info: dict[str, Any]) -> datetime:
     upload_time = max(
         d["upload_time"] for d in info["releases"][last_release] if "upload_time" in d
     )
-    return datetime.strptime(upload_time, '%Y-%m-%dT%H:%M:%S')
+    return datetime.strptime(upload_time, '%Y-%m-%dT%H:%M:%S').replace(tzinfo=UTC)
 
 
 # Trigger the CircleCI workflow if a new release has been made in the last 24 hours
