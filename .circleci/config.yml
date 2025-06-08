@@ -199,6 +199,7 @@ workflows:
       - solana_regression:
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
+          certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
 
   regression:
@@ -226,4 +227,5 @@ workflows:
     jobs:
       - solana_regression:
           certora_ci_name: Solana Examples Regression Manual
+          certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
