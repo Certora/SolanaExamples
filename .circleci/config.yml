@@ -118,7 +118,7 @@ commands:
 jobs:
   check-release-sbf:
     docker:
-      - image: public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: &cvt-image public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
     resource_class: small
     working_directory: ~/repo
     steps:
@@ -142,7 +142,7 @@ jobs:
       certora_cli_package:         
         type: string
     docker:
-      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: *cvt-image
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
@@ -177,7 +177,7 @@ jobs:
   
   report_analyzer:
     docker:
-      - image: *img
+      - image: *cvt-image
     resource_class: small
     environment:
       SLACK_CHANNEL: "solana-nightly-reports"
