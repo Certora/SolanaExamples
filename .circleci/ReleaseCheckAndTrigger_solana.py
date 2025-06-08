@@ -82,6 +82,7 @@ def trigger_workflow_if_new():
 
 
 def main():
+    print("Checking for new releases of certora-cli...")
     info = fetch_package_info(RELEASE_URL)
     if not info:
         print("Failed to fetch package information.")
@@ -96,3 +97,7 @@ def main():
         trigger_workflow_if_new()
     else:
         print("No new release in the last 24 hours. No action taken.")
+
+
+if __name__ == "__main__":
+    main()
