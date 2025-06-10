@@ -128,7 +128,7 @@ jobs:
           command: pip3.11 install requests semver
       - run:
           name: Check certora-cli releases & trigger SolanaExamples CI
-          command: python3 .circleci/ReleaseCheckAndTrigger_solana.py
+          command: python3.11 .circleci/ReleaseCheckAndTrigger_solana.py
             
   solana_regression:
     parameters:
