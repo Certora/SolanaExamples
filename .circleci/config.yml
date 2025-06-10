@@ -116,6 +116,20 @@ commands:
 
 
 jobs:
+  check-release-sbf:
+    docker:
+      - image: &cvt-image public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+    resource_class: small
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Python deps
+          command: pip3.11 install requests semver
+      - run:
+          name: Check certora-cli releases & trigger SolanaExamples CI
+          command: python3.11 .circleci/ReleaseCheckAndTrigger_solana.py
+            
   solana_regression:
     parameters:
       certora_ci_name:
@@ -123,8 +137,10 @@ jobs:
       invoke_analyzer:
         default: false
         type: boolean
+      certora_cli_package:         
+        type: string
     docker:
-      - image: &img public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: *cvt-image
     resource_class: small
     environment:
       CERTORA_DISABLE_AUTO_CACHE: "1"
@@ -159,7 +175,7 @@ jobs:
   
   report_analyzer:
     docker:
-      - image: *img
+      - image: *cvt-image
     resource_class: small
     environment:
       SLACK_CHANNEL: "solana-nightly-reports"
@@ -185,6 +201,19 @@ jobs:
 
 workflows:
   version: 2
+  # This workflow is triggered by a nightly schedule, if a new certora-cli release is available it will trigger the solana_regression workflow on the main branch.
+  check-and-trigger:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only:
+                - pre-release
+    jobs:
+      - check-release-sbf
+
+  # This workflow is triggered by a nightly schedule, on the pre-release branch (validated on certora-cli-alpha release).
   nightly:
     triggers:
       - schedule:
@@ -192,19 +221,28 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - pre-release
     jobs:
       - solana_regression:
+          name: Solana Examples Nightly
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
+          certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
 
+  # This workflow is triggered by creating a PR from pre-release to main. (validated on certora-cli main release)
   regression:
     jobs:
       - solana_regression:
+          filters:
+            branches:
+              only:
+                - main
           name: Solana-regression
           certora_ci_name: Solana Examples Regression
+          certora_cli_package: certora-cli
           context: aws_staging
+
 
   analyze-nightly:
     when: << pipeline.parameters.run_nightly_report_analyze >>
@@ -218,4 +256,5 @@ workflows:
     jobs:
       - solana_regression:
           certora_ci_name: Solana Examples Regression Manual
+          certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
