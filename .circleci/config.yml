@@ -1,40 +1,32 @@
 version: 2.1
 
-
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
-
 
 parameters:
   run_nightly_report_analyze:
     default: false
     type: boolean
-  
   certora_cli_package:
     default: "certora-cli-alpha-master"
     type: string
-
   path_to_confs:
     default: "cvlr_by_example"
     type: string
-  
   prover_version:
     default: "master"
     type: string
-
   extra_rustflags:
     default: ""
     type: string
-
   rule_sanity:
     default: "basic"
     type: string
-  
   run_workflow_nightly:
     default: false
     type: boolean
 
-
+## --- Commands ---
 commands:
   install_conf_runner_infra:
     steps:
@@ -42,7 +34,6 @@ commands:
           name: Install ConfRunnerInfra
           command: |
             pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
-            # If pip installs scripts into ~/.local/bin, add it to PATH:
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
   
   install_report_analyzer:
@@ -51,14 +42,18 @@ commands:
           name: Install ReportAnalyzer
           command: |
             pip3.11 install git+ssh://git@github.com/Certora/ReportAnalysis.git
-            # If pip installs scripts into ~/.local/bin, add it to PATH:
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
+  # This command now accepts a 'package' parameter to specify the CLI version.
   install_certora_cli:
+    parameters:
+      package:
+        type: string
+        default: "certora-cli-alpha-master"
     steps:
       - run:
-          name: Install Certora CLI Package
-          command: pip3.11 install << pipeline.parameters.certora_cli_package >>
+          name: Install Certora CLI Package (<< parameters.package >>)
+          command: pip3.11 install << parameters.package >>
 
   configure_aws:
     steps:
@@ -70,10 +65,9 @@ commands:
   install_solana:
     steps:
       - run:
-          name: Install Solana v.18.16
+          name: Install Solana v1.18.16
           command: |
             sh -c "$(curl -sSfL https://release.anza.xyz/v1.18.16/install)"
-            # Persist the updated PATH so that Solana binaries are available in later steps.
             echo 'export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"' >> $BASH_ENV
 
   install_certora_sbf:
@@ -88,25 +82,19 @@ commands:
      steps:
       - run:
           name: Install Certora Platform Tools 
-          command: |
-            cargo certora-sbf --no-build --force-tools-install -vvv
+          command: cargo certora-sbf --no-build --force-tools-install -vvv
 
   install_just:
     steps:
       - run:
           name: Install Just
-          command: |
-            cargo install just
+          command: cargo install just
 
   regression:
     steps:
       - run:
           name: Run Regression Tests
           command: |
-            echo "PATH: $PATH"
-            ls -l ~/.local/share/solana/install
-            whoami
-            which cargo-build-sbf
             Regression --path << pipeline.parameters.path_to_confs >> \
                       --prover_run_cmd certoraSolanaProver \
                       --prover_version << pipeline.parameters.prover_version >> \
@@ -114,7 +102,7 @@ commands:
                       --checks Verification \
                       --send_message
 
-
+## --- Jobs ---
 jobs:
   check-release-sbf:
     docker:
@@ -137,8 +125,10 @@ jobs:
       invoke_analyzer:
         default: false
         type: boolean
-      certora_cli_package:         
+      certora_cli_package:
+        # The job now has a parameter for the package name.
         type: string
+        default: "certora-cli-alpha-master"
     docker:
       - image: *cvt-image
     resource_class: small
@@ -149,7 +139,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - install_certora_cli
+      # The job's 'certora_cli_package' parameter is now passed to the command.
+      - install_certora_cli:
+          package: << parameters.certora_cli_package >>
       - configure_aws
       - install_conf_runner_infra
       - install_solana
@@ -182,6 +174,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      # This job now uses the default from the command: 'certora-cli-alpha-master'
       - install_certora_cli
       - configure_aws
       - install_conf_runner_infra
@@ -198,10 +191,9 @@ jobs:
           path: Report.csv
           destination: reports
 
-
+## --- Workflows ---
 workflows:
   version: 2
-  # This workflow is triggered by a nightly schedule, if a new certora-cli release is available it will trigger the solana_regression workflow on the main branch.
   check-and-trigger:
     triggers:
       - schedule:
@@ -213,7 +205,6 @@ workflows:
     jobs:
       - check-release-sbf
 
-  # This workflow is triggered by a nightly schedule, on the pre-release branch (validated on certora-cli-alpha release).
   nightly:
     triggers:
       - schedule:
@@ -224,13 +215,13 @@ workflows:
                 - pre-release
     jobs:
       - solana_regression:
-          name: Solana Examples Nightly
+          name: Solana-Examples-Nightly
           certora_ci_name: Solana Examples Nightly
           invoke_analyzer: true
+          # This passes the pipeline-level parameter (default: certora-cli-alpha-master) to the job.
           certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
 
-  # This workflow is triggered by creating a PR from pre-release to main. (validated on certora-cli main release)
   regression:
     jobs:
       - solana_regression:
@@ -238,11 +229,11 @@ workflows:
             branches:
               only:
                 - main
-          name: Solana-regression
+          name: Solana-Main-Regression
           certora_ci_name: Solana Examples Regression
+          # This correctly passes 'certora-cli' to the job, which will then be installed.
           certora_cli_package: certora-cli
           context: aws_staging
-
 
   analyze-nightly:
     when: << pipeline.parameters.run_nightly_report_analyze >>
@@ -250,11 +241,11 @@ workflows:
       - report_analyzer:
           context: aws_staging
 
-  # run from CircleCI with the boolean parameter run_workflow_nightly set to true
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
     jobs:
       - solana_regression:
           certora_ci_name: Solana Examples Regression Manual
+          # This passes the pipeline-level parameter, which can be overridden at runtime.
           certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
