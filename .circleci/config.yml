@@ -47,7 +47,7 @@ commands:
       - run:
           name: Install ReportAnalyzer
           command: |
-            pip3.11 install git+ssh://git@github.com/Certora/ReportAnalysis.git
+            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
   # This command now accepts a 'package' parameter to specify the CLI version.
