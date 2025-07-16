@@ -41,12 +41,12 @@ commands:
   
   install_report_analyzer:
     steps:
-      - run:
-          name: Fix ssh config
-          command: echo "HostName github.com" >> ~/.ssh/config
       - add_ssh_keys:
           fingerprints:
             - "SHA256:3Suza/qbe+9JJow4Xpsmirb24reG9o5NZFMoVt7MTs0"
+      - run:
+          name: Fix ssh config
+          command: echo "HostName github.com" >> ~/.ssh/config
       - run:
           name: Install ReportAnalyzer
           command: |
