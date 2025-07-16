@@ -41,6 +41,9 @@ commands:
   
   install_report_analyzer:
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:3Suza/qbe+9JJow4Xpsmirb24reG9o5NZFMoVt7MTs0"
       - run:
           name: Install ReportAnalyzer
           command: |
