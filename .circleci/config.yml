@@ -30,6 +30,9 @@ parameters:
 commands:
   install_conf_runner_infra:
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:bXE/cHQMq2ZVFCAOGz/BVqKOCJLyiUUoEBKrhSBHb5s"
       - run:
           name: Install ConfRunnerInfra
           command: |
@@ -38,10 +41,16 @@ commands:
   
   install_report_analyzer:
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:3Suza/qbe+9JJow4Xpsmirb24reG9o5NZFMoVt7MTs0"
+      - run:
+          name: Fix ssh config
+          command: echo "HostName github.com" >> ~/.ssh/config
       - run:
           name: Install ReportAnalyzer
           command: |
-            pip3.11 install git+ssh://git@github.com/Certora/ReportAnalysis.git
+            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
   # This command now accepts a 'package' parameter to specify the CLI version.
