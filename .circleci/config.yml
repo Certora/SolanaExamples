@@ -97,7 +97,7 @@ commands:
     steps:
       - run:
           name: Install Just
-          command: cargo install just
+          command: cargo install just --locked
 
   regression:
     steps:
