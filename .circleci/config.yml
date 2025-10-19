@@ -97,7 +97,7 @@ commands:
     steps:
       - run:
           name: Install Just
-          command: cargo install just
+          command: cargo install just --version 1.42.4 --locked
 
   regression:
     steps:
