@@ -254,7 +254,7 @@ workflows:
       - report_analyzer:
           context:
             - aws_staging
-            - secure-repo-access
+            - secure_repo_access
 
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
