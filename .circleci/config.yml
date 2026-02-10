@@ -37,7 +37,7 @@ commands:
       - run:
           name: Install ConfRunnerInfra
           command: |
-            pip3.11 install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
+            pip install git+ssh://git@github.com/Certora/ConfRunnerInfra.git
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
   
   install_report_analyzer:
@@ -52,7 +52,7 @@ commands:
           name: Install ReportAnalyzer
           command: |
             # TODO: change this back to the default branch
-            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git@oz/pat
+            pip install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git@oz/pat
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
   # This command now accepts a 'package' parameter to specify the CLI version.
@@ -64,7 +64,7 @@ commands:
     steps:
       - run:
           name: Install Certora CLI Package (<< parameters.package >>)
-          command: pip3.11 install << parameters.package >>
+          command: pip install << parameters.package >>
 
   configure_aws:
     steps:
@@ -117,14 +117,14 @@ commands:
 jobs:
   check-release-sbf:
     docker:
-      - image: &cvt-image public.ecr.aws/certora/cvt-image:2024.10.16-4480-c8870b3
+      - image: &cvt-image public.ecr.aws/certora/cvt-image:2026.01.18-5647-d0d207c
     resource_class: small
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: Install Python deps
-          command: pip3.11 install requests semver
+          command: pip install requests semver
       - run:
           name: Check certora-cli releases & trigger SolanaExamples CI
           command: python3.11 .circleci/ReleaseCheckAndTrigger_solana.py
