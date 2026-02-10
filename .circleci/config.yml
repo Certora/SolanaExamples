@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
+  secure-repo-access: certora/secure-repo-access@0.0.2
 
 parameters:
   run_nightly_report_analyze:
@@ -50,7 +51,8 @@ commands:
       - run:
           name: Install ReportAnalyzer
           command: |
-            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git
+            # TODO: change this back to the default branch
+            pip3.11 install git+ssh://git@github.com-reportanalysis/Certora/ReportAnalysis.git@oz/pat
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 
   # This command now accepts a 'package' parameter to specify the CLI version.
@@ -192,6 +194,8 @@ jobs:
       - install_certora_sbf
       - install_certora_platform_tools
       - install_just
+      - secure-repo-access/get_token:
+          github_repository: "EVMVerifier"
       - run:
           name: Run nightly report analyzer
           no_output_timeout: 5h 
@@ -248,7 +252,9 @@ workflows:
     when: << pipeline.parameters.run_nightly_report_analyze >>
     jobs:
       - report_analyzer:
-          context: aws_staging
+          context:
+            - aws_staging
+            - secure-repo-access
 
   manual:
     when: << pipeline.parameters.run_workflow_nightly >>
