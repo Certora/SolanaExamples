@@ -9,6 +9,7 @@ crate-type = ["cdylib"]
 [features]
 no-entrypoint = []
 certora = ["no-entrypoint"]
+rt = ["certora", "cvlr-solana/rt"]
 
 [dependencies]
 solana-program = { workspace = true }
