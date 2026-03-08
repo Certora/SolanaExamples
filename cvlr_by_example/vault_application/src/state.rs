@@ -3,7 +3,7 @@ use solana_program::pubkey::Pubkey;
 use spl_pod::primitives::PodU64;
 
 #[repr(C)]
-#[derive(Debug, Clone, Pod, Copy, Zeroable)]
+#[derive(Debug, Clone, Pod, Copy, Zeroable, Default)]
 pub struct Vault {
     pub owner: Pubkey,
     pub shares_total: PodU64,
