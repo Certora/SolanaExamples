@@ -210,7 +210,7 @@ workflows:
   check-and-trigger:
     triggers:
       - schedule:
-          cron: "0 4 * * *"
+          cron: "0 4 * * 0"
           filters:
             branches:
               only:
@@ -264,4 +264,3 @@ workflows:
           # This passes the pipeline-level parameter, which can be overridden at runtime.
           certora_cli_package: << pipeline.parameters.certora_cli_package >>
           context: aws_staging
-
