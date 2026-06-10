@@ -206,7 +206,7 @@ workflows:
   check-and-trigger:
     triggers:
       - schedule:
-          cron: "0 4 * * *"
+          cron: "0 4 * * 0"
           filters:
             branches:
               only:
@@ -217,7 +217,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "0 4 * * *"
+          cron: "0 4 * * 0"
           filters:
             branches:
               only:
